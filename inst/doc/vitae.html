@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Introduction to vitae</title>
+
+
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction to vitae</h1>
+
+
+
+<p>The vitae package makes creating and maintaining a Résumé or CV with R Markdown simple. It provides a collection of LaTeX templates, with helpful functions to add content to the documents. These functions allow you to dynamically include CV entries from any data source, which is particularly useful when this data is obtained/prepared by other R packages. Some examples of what this allows you to do includes:</p>
+<ul>
+<li>Automatically get your work experience from the web</li>
+<li>List the R packages you have contributed to</li>
+<li>Filter CV entries by keywords relevant to the current job</li>
+<li>Include your academic publications</li>
+</ul>
+<div id="creating-a-cv" class="section level2">
+<h2>Creating a CV</h2>
+<p>If using RStudio, a new CV document can be easily produced from one of the templates provided in the package. This using the RStudio R Markdown template selector, accessible via <code>File</code> &gt; <code>New File</code> &gt; <code>R Markdown...</code>, and lastly <code>From Template</code>. This will show a list of R Markdown templates provided by all installed packages, and you should be able to find some templates from the vitae package to use.</p>
+<p>If not using RStudio, you can create a new <code>*.Rmd</code> document and use an output format that is provided by the package. A list of output formats provided by the package can be found with <code>?cv_formats</code>. Examples of a YAML header that use one of these output formats is shown below.</p>
+<p>Like other R Markdown documents, the file is split into two sections: the YAML header, and the main body.</p>
+<div id="the-yaml-header" class="section level3">
+<h3>The YAML header</h3>
+<p>The YAML header contains general entries that are common across many templates, such as your name, address and social media profiles. This is also where the output format (the CV template used) is specified, along with any options that the template supports. An example of what this header may look like is shown below:</p>
+<pre><code><pre>
+<code>---
+name: Mitchell O'Hara-Wild
+date: "`r format(Sys.time(), '%B, %Y')`"
+profilepic: pic.jpg
+website: mitchelloharawild.com
+github: mitchelloharawild
+linkedin: mitchelloharawild
+twitter: mitchoharawild
+headcolor: 414141
+output: vitae::awesomecv
+---</code>
+</pre></code></pre>
+<p>You can also see that the output is set to <code>vitae::awesomecv</code>, which indicates that this CV uses the <a href="https://github.com/posquit0/Awesome-CV">Awesome CV</a> template.</p>
+<p>Currently, the YAML header allows these fields to be specified:</p>
+<ul>
+<li><code>name</code>: Your name</li>
+<li><code>position</code>: Your current workplace title or field</li>
+<li><code>address</code>: Your address</li>
+<li><code>date</code>: The current date</li>
+<li><code>profilepic</code>: A local file path to an image</li>
+<li><code>www</code>: Your website address</li>
+<li><code>email</code>: Your email address</li>
+<li><code>twitter</code>: Your twitter handle</li>
+<li><code>github</code>: Your GitHub handle</li>
+<li><code>linkedin</code>: Your LinkedIn username</li>
+<li><code>aboutme</code>: A short description that is included in a template specific location</li>
+<li><code>headcolor</code>: A featured colour for the template</li>
+</ul>
+</div>
+<div id="the-document-body" class="section level3">
+<h3>The document body</h3>
+<p>Like other R Markdown documents, the body allows you to mix R code with markdown to create the main content for your document. Below is an example of the start for a typical CV:</p>
+<pre>
+<code>```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(vitae)
+```
+
+# Professional Summary
+
+This is a good opportunity to introduce yourself professionally and summarise
+why your skills are well suited to the job you are applying for!")</code>
+</pre>
+<p>The setup chunk is useful to load in any packages that you may use, and also prevent R code and warnings/notes from appearing in your CV. The above code also includes a professional summary using markdown syntax, which will appear in the final CV.</p>
+<p>Unlike other R markdown formats, the vitae package and its templates support functions to generate CV entries from data: <code>detailed_entries()</code> and <code>brief_entries()</code>. Both functions provide sections for <code>what</code>, <code>when</code>, and <code>with</code>, and the <code>detailed_entries()</code> additionally supports <code>where</code> and <code>why</code>. They use an interface similar to <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a>, in that the data can be piped (<code>%&gt;%</code>) into these functions, and the arguments can involve some calculations.</p>
+<div id="detailed-entries" class="section level4">
+<h4>Detailed entries</h4>
+<p>Let’s add to the main body with some education history. These details are available on <a href="https://orcid.org">ORCID</a> with my ID of <a href="https://orcid.org/0000-0001-6729-7695">0000-0001-6729-7695</a>, which can be dynamically accessed using the <a href="https://CRAN.R-project.org/package=rorcid">rorcid</a> package.</p>
+<pre>
+<code># Education
+
+```{r education}
+library(vitae)
+edu &lt;- rorcid::orcid_educations("0000-0001-6729-7695")
+edu$`0000-0001-6729-7695`$`education-summary` %&gt;%
+  detailed_entries(
+    what = `role-title`,
+    when = glue::glue("{`start-date.year.value`} - {`end-date.year.value`}"),
+    with = organization.name,
+    where = organization.address.city
+  )
+```</code>
+</pre>
+<p>In the example above, the <a href="https://CRAN.R-project.org/package=glue">glue</a> package has been used to combine the start and end years for our <code>when</code> input. Excluding any arguments is also okay (as is done for <code>why</code>), it will just be left blank in the CV.</p>
+</div>
+<div id="brief-entries" class="section level4">
+<h4>Brief entries</h4>
+<p>Brief entries can be included with the same interface as <code>detailed_entries()</code>, and is appropriate for entries that do not need as much detail (such as skills). Another application of this is to include a list of R packages that you have published to CRAN using the <a href="https://CRAN.R-project.org/package=pkgsearch">pkgsearch</a> package.</p>
+<pre>
+<code># R Packages
+
+```{r rpkgs}
+pkgsearch::ps("O'Hara-Wild",size = 100) %&gt;%
+  filter(purrr::map_lgl(package_data, ~ grepl("Mitchell O'Hara-Wild", .x$Author, fixed = TRUE))) %&gt;%
+  arrange(desc(downloads_last_month)) %&gt;%
+  brief_entries(
+    what = title,
+    when = lubridate::year(date),
+    with = description
+  )
+```</code>
+</pre>
+<p>This example also uses several other packages to prepare the data: - <a href="https://CRAN.R-project.org/package=dplyr">dplyr</a> to <code>filter()</code> my contributed packages, and <code>arrange()</code> the data by downloads - <a href="https://CRAN.R-project.org/package=purrr">purrr</a> to map over <code>package_data</code> column to find packages I’ve contributed to - <a href="https://CRAN.R-project.org/package=lubridate">lubridate</a> to display only the year from the <code>date</code> column</p>
+</div>
+<div id="bibliography-entries" class="section level4">
+<h4>Bibliography entries</h4>
+<p>The package also supports bibliography entries from a <code>*.bib</code> file using the <code>bibliography_entries()</code> function. This outputs the contents of a bibliography using a citation style, and is suitable for CVs containing publications.</p>
+<pre>
+<code>```{r publications}
+bibliography_entries("publications.bib", "Publications")
+```</code>
+</pre>
+</div>
+</div>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

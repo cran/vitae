@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+<title>Creating vitae templates</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' || rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#header {
+text-align: center;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Creating vitae templates</h1>
+
+
+
+<p>Résumé/CV templates are abundantly available in many varieties of themes and layouts. The <code>vitae</code> package provides a few of the more popular templates that are suitable for most resumes. The included templates are far from comprehensive - your favourite template may not be included, or perhaps you have created your own template. This vignette explains how your LaTeX CV can be used within the package using custom templates.</p>
+<div id="creating-a-vitae-template" class="section level2">
+<h2>Creating a vitae template</h2>
+<p>Extending <code>vitae</code> to support new templates involves a similar process to creating new <code>rmarkdown</code> document templates. An extended explanation for creating <code>rmarkdown</code> templates can be found in the <a href="https://bookdown.org/yihui/rmarkdown/document-templates.html"><em>Document Templates</em> chapter</a> in <a href="https://bookdown.org/yihui/rmarkdown/">“R Markdown: The Definitive Guide”</a>.</p>
+<p>Creating a template for vitae can be broken into three parts: - Converting a CV into a Pandoc template - Adding LaTeX macros for displaying CV entries - Using the template with <code>rmarkdown</code></p>
+<div id="converting-a-cv-into-a-pandoc-template" class="section level3">
+<h3>Converting a CV into a Pandoc template</h3>
+<p>Most elements that are included in the YAML header of an <code>rmarkdown</code> document are passed to your template via Pandoc variables. Pandoc variables can be included in your template file by surrounding the variable with <code>$</code>. These can be used to fill in basic CV details such as your name, occupation, and social links.</p>
+<p>For example, suppose your document contains this YAML header:</p>
+<pre><code>name: &quot;Mitchell O'Hara-Wild&quot;
+position: &quot;vitae maintainer&quot;
+output: vitae::awesomecv</code></pre>
+<p>The <code>$name$</code> variable in the template would be substituted with <code>Mitchell O'Hara-Wild</code> and similarly, <code>$position$</code> would become <code>vitae maintainer</code>. Many templates won’t follow this same structure exactly (some may split the name into first and last names), but most of the time there is a reasonable place for these variables. It is recommended that a consistent set of variables are used to make switching between templates easy.</p>
+<p>The current list of variables used in the <code>vitae</code> templates are:</p>
+<ul>
+<li>name</li>
+<li>position</li>
+<li>address</li>
+<li>date</li>
+<li>profilepic</li>
+<li>www</li>
+<li>email</li>
+<li>twitter</li>
+<li>github</li>
+<li>linkedin</li>
+<li>aboutme</li>
+<li>headcolor</li>
+</ul>
+<p>In the <a href="https://github.com/xdanaux/moderncv">moderncv template</a>, the position of ‘vitae maintainer’ is specified using <code>\position{vitae maintainer}</code>. Using Pandoc variables, this would be replaced with <code>\position{$position$}</code>, which allows the position to be defined in the <code>rmarkdown</code> document’s YAML header.</p>
+<p>However if a <code>position</code> has not been provided in the YAML header, this would leave us with <code>\position{}</code> (which might be okay for some templates, but is undesirable for most templates). To resolve this, we can use Pandoc to conditionally include this section with <code>$if(position)$\position{$position$}$endif$</code>.</p>
+<p>The main content from an <code>rmarkdown</code> document is also included using Pandoc variables. The results from the main section of the document is stored in <code>$body$</code>. So in a typical LaTeX CV template, where there is usually pre-filled details about experience and employment, this can be completely replaced with <code>$body$</code>. There are a few other common variables to place within the template, which are typically placed in the same location as other templates. These variables include:</p>
+<ul>
+<li>body</li>
+<li>header-includes</li>
+<li>fontfamily</li>
+<li>fontfamilyoptions</li>
+<li>fontsize</li>
+<li>lang</li>
+<li>papersize</li>
+<li>classoption</li>
+<li>linestretch</li>
+<li>include-before</li>
+<li>include-after</li>
+<li>highlighting-macros</li>
+</ul>
+<p>Placement of these variables can be found by looking at other template files provided in the package. The conversion of the moderncv template into a Pandoc template for <code>vitae</code> can be found on <a href="https://github.com/ropenscilabs/vitae/blob/master/inst/rmarkdown/templates/moderncv/resources/moderncv.tex">GitHub</a>.</p>
+</div>
+<div id="adding-latex-macros-for-displaying-cv-entries" class="section level3">
+<h3>Adding LaTeX macros for displaying CV entries</h3>
+<p>The interface for producing entries in a CV varies greatly between templates. To support these various formats, LaTeX macros are used to transfer the format provided by <code>vitae</code> into a format suitable for each template.</p>
+<p>The moderncv template provides many different layouts, of which I have selected the two that best suit <code>brief_entries</code> and <code>detailed_entries</code>.</p>
+<div id="brief_entries" class="section level4">
+<h4>brief_entries</h4>
+<p>The moderncv template <code>\cvitem</code> command generates an appropriate layout for brief entries. It expects inputs in this format:</p>
+<pre><code>\cvitem{Title}{Description}</code></pre>
+<p>The <code>vitae</code> package returns <code>brief_entries</code> in this format:</p>
+<pre><code>\briefsection{
+  \briefitem{what}{when}{with}
+}</code></pre>
+<p>So in our Pandoc template’s header, we need to define macros for <code>\briefsection</code> and <code>\briefitem</code> that produce an appropriately structured <code>\cvitem</code>. The <code>\briefitem</code> provides 3 inputs, and <code>\cventry</code> expects 2, so we will need to combine two of the <code>\briefitem</code> inputs. A suitable LaTeX macro could be defined as:</p>
+<pre><code>% Templates for brief entries
+% Arguments: what when with
+\def\briefitem#1#2#3{\cvitem{#2}{#1. #3}}
+\def\briefsection#1{\nopagebreak#1}</code></pre>
+<p>Here the <code>\briefsection</code> macro is essentially doing nothing (other than ensuring there will be no page break). Other CV templates use special environments for entries, where this macro is more useful (such as <code>twentyseconds</code>). The <code>\briefitem</code> macro is mapping <code>when</code> to the <code>Title</code> of the item (as this is more consistently formatted with <code>detailed_items</code>), and combining <code>what</code> and <code>with</code> to form the item’s <code>Description</code>.</p>
+</div>
+<div id="detailed_entries" class="section level4">
+<h4>detailed_entries</h4>
+<p>For detailed CV entries, the moderncv <code>\cventry</code> command is reasonable. It expects inputs in this format:</p>
+<pre><code>\cventry{Year}{Degree}{Institution}{City}{Grade}{Description}</code></pre>
+<p>The <code>vitae</code> package returns <code>detailed_entries</code> in this format:</p>
+<pre><code>\detailedsection{
+  \detaileditem{what}{when}{with}{where}{\item{why1}\item{why2}...}
+}</code></pre>
+<p>The <code>\detaileditem</code> provides 5 inputs, and <code>\cventry</code> expects 6, so we will leave the <code>Grade</code> section blank, as it is better suited in the “why” argument for the <code>vitae</code> package. The code below shows how the order of inputs to <code>\detaileditem</code> can be mapped onto the inputs of <code>\cventry</code>. To appropriately format the list of <code>why</code> items, we are conditionally wrapping this input in an <code>itemize</code> environment.</p>
+<pre><code>% Templates for detailed entries
+% Arguments: what when with where why
+\usepackage{etoolbox}
+\def\detaileditem#1#2#3#4#5{
+    \cventry{#2}{#1}{#3}{#4}{}{{\ifx#5\empty\else{\begin{itemize}#5\end{itemize}}\fi}}}
+\def\detailedsection#1{\nopagebreak#1}</code></pre>
+</div>
+</div>
+<div id="using-the-template-with-rmarkdown" class="section level3">
+<h3>Using the template with rmarkdown</h3>
+<p>Once the Pandoc variables and LaTeX CV entry macros are set in the template, it is ready for use with the <code>vitae</code> package. The package provides the <code>cv_document</code> output format, which is suitable for use with custom templates. To use the custom template, your <code>rmarkdown</code> document’s YAML header would look like this:</p>
+<pre><code>output:
+  vitae::cv_document:
+    template: my_custom_template.tex</code></pre>
+<p>You will also need to copy all of the LaTeX class (<code>.cls</code>) and style (<code>.sty</code>) files provided with the template into the same folder as your <code>rmarkdown</code> document. Once that is done, your new template should be ready to use with the <code>vitae</code> package.</p>
+</div>
+</div>
+<div id="contributing-to-the-vitae-package" class="section level2">
+<h2>Contributing to the vitae package</h2>
+<p>If you’ve gone to the effort of successfully creating a new template with the <code>vitae</code> package, you may be interested in making it available for others to use. You can contribute to this package by <a href="http://r-pkgs.had.co.nz/git.html#git-pullreq">submitting a pull request</a> that adds your template to the package.</p>
+<p>Adding your template to the package can be done with:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">usethis<span class="op">::</span><span class="kw">use_rmarkdown_template</span>(</a>
+<a class="sourceLine" id="cb9-2" data-line-number="2">  <span class="dt">template_name =</span> <span class="st">&quot;Curriculum Vitae (ModernCV format)&quot;</span>,</a>
+<a class="sourceLine" id="cb9-3" data-line-number="3">  <span class="dt">template_dir =</span> <span class="st">&quot;my_template&quot;</span>,</a>
+<a class="sourceLine" id="cb9-4" data-line-number="4">  <span class="dt">template_description =</span> <span class="st">&quot;The ModernCV template (https://github.com/xdanaux/moderncv) for vitae&quot;</span>,</a>
+<a class="sourceLine" id="cb9-5" data-line-number="5">  <span class="dt">template_create_dir =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>Then by navigating to the package’s <code>inst/rmarkdown/templates/my_template</code> folder, you can add your Pandoc template to the <code>resources</code> folder, and your <code>.cls</code> and <code>.sty</code> files to the <code>skeleton</code> folder.</p>
+<p>Once that is done, we can create a new <code>rmarkdown</code> output format that uses your template. These are added to the “R/formats.R” file, and will usually follow the same structure as other templates. The template argument to <code>cv_document</code> is a link to your Pandoc template in the package (accessed using <code>system.file</code>), and it is recommended that the supporting <code>.cls</code> and <code>.sty</code> files are copied using <code>copy_supporting_files</code>.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">#' @rdname cv_formats</span></a>
+<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#' @export</span></a>
+<a class="sourceLine" id="cb10-3" data-line-number="3">moderncv &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
+<a class="sourceLine" id="cb10-4" data-line-number="4">  template &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">&quot;rmarkdown&quot;</span>, <span class="st">&quot;templates&quot;</span>, <span class="st">&quot;my_template&quot;</span>,</a>
+<a class="sourceLine" id="cb10-5" data-line-number="5">                          <span class="st">&quot;resources&quot;</span>, <span class="st">&quot;moderncv.tex&quot;</span>, <span class="dt">package=</span><span class="st">&quot;vitae&quot;</span>)</a>
+<a class="sourceLine" id="cb10-6" data-line-number="6">  <span class="kw">copy_supporting_files</span>(<span class="st">&quot;my_template&quot;</span>)</a>
+<a class="sourceLine" id="cb10-7" data-line-number="7">  <span class="kw">cv_document</span>(..., <span class="dt">template =</span> template, <span class="dt">citation_package=</span><span class="st">&quot;biblatex&quot;</span>, <span class="dt">latex_engine=</span><span class="st">&quot;xelatex&quot;</span>)</a>
+<a class="sourceLine" id="cb10-8" data-line-number="8">}</a></code></pre></div>
+<p>The automatically generated <code>skeleton.Rmd</code> document in the <code>skeleton</code> folder should be modified to be a basic example of using your template. Examples of this file can be found in other templates, and this template file can act as a useful test for your template!</p>
+<p>All done! You should now be able to install your new version of the package with <code>devtools::install()</code>, and test out your new output format with:</p>
+<pre><code>output:
+  vitae::my_template</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
