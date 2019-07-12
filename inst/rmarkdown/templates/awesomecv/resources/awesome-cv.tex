@@ -64,7 +64,7 @@ $endif$
 $if(profilepic)$
 \photo{$profilepic$}
 $endif$
-\name{$name$}{}
+\name{$name$}{$if(surname)$$surname$$endif$}
 
 $if(position)$
 \position{$position$}
@@ -106,7 +106,7 @@ $endif$
 % Templates for detailed entries
 % Arguments: what when with where why
 \usepackage{etoolbox}
-\def\detaileditem#1#2#3#4#5{
+\def\detaileditem#1#2#3#4#5{%
 \cventry{#1}{#3}{#4}{#2}{\ifx#5\empty\else{\begin{cvitems}#5\end{cvitems}}\fi}}
 \def\detailedsection#1{\begin{cventries}#1\end{cventries}}
 
@@ -136,9 +136,10 @@ $endfor$
 
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
+% 2019-02-14 Chris Umphlett - add flexibility to the document name in footer, rather than have it be static Curriculum Vitae
 \makecvfooter
   {$date$}
-  {$name$~~~·~~~Curriculum Vitae}
+    {$name$$if(surname)$ $surname$$endif$~~~·~~~$if(docname)$$docname$$else$Curriculum Vitae$endif$}
   {\thepage}
 
 

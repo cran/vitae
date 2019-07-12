@@ -69,7 +69,7 @@ $else$
 \profilepic{}
 $endif$
 
-\cvname{$name$} % Your name
+\cvname{$name$$if(surname)$$surname$$endif$} % Your name
 
 $if(position)$\cvjobtitle{$position$}$else$\cvjobtitle{}$endif$ % Job title/career
 $if(date)$\cvdate{$date$}$else$\cvdate{}$endif$ % Date of birth or date of CV??
@@ -93,7 +93,7 @@ $if(linkedin)$\cvlinkedin{\href{https://www.linkedin.com/in/$linkedin$}{$linkedi
 \def\briefitem#1#2#3{\twentyitemshort{#2}{#1. #3}}
 \def\briefsection#1{\nopagebreak\begin{twentyshort}#1\end{twentyshort}}
 
-\lfoot{\sf Curriculum Vitae: $name$}
+\lfoot{\sf $if(docname)$$docname$$else$Curriculum Vitae$endif$: $name$$if(surname)$ $surname$$endif$}
 \rfoot{\sf\thepage}
 
 \begin{document}

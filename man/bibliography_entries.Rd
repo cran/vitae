@@ -4,16 +4,15 @@
 \alias{bibliography_entries}
 \title{Print bibliography section}
 \usage{
-bibliography_entries(file, title = "Refereed journal papers",
-  sorting = "ynt", startlabel = NULL, endlabel = NULL)
+bibliography_entries(file, title = NULL, sorting = NULL,
+  startlabel = NULL, endlabel = NULL)
 }
 \arguments{
 \item{file}{A path to a .bib file.}
 
-\item{title}{Character string giving section title.}
+\item{title}{Deprecated, use markdown sub-headers.}
 
-\item{sorting}{Character stringing specifying how entries should be sorted. Default is "ynt" meaning
-sort by year first, then name, then title.}
+\item{sorting}{Deprecated, use \code{\link[dplyr:arrange]{dplyr::arrange()}} to re-order the bibliography.}
 
 \item{startlabel}{Optional label for first reference in the section.}
 

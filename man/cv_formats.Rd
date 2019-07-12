@@ -6,6 +6,7 @@
 \alias{twentyseconds}
 \alias{awesomecv}
 \alias{moderncv}
+\alias{latexcv}
 \title{Output formats for CVs}
 \usage{
 hyndman(...)
@@ -14,10 +15,16 @@ twentyseconds(...)
 
 awesomecv(...)
 
-moderncv(...)
+moderncv(..., theme = c("casual", "classic", "oldstyle", "banking",
+  "fancy"))
+
+latexcv(..., theme = c("classic", "modern", "rows", "sidebar",
+  "two_column"))
 }
 \arguments{
 \item{\dots}{Arguments passed to \code{\link[vitae]{cv_document}}.}
+
+\item{theme}{The theme used for the template.}
 }
 \value{
 An R Markdown output format object.

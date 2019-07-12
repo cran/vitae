@@ -1,6 +1,6 @@
 Package: vitae
 Title: Curriculum Vitae for R Markdown
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
   person("Mitchell", "O'Hara-Wild", role=c("aut", "cre"), email = "mail@mitchelloharawild.com", comment=c(ORCID = "0000-0001-6729-7695")),
   person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role=c("aut"), comment = c(ORCID = "0000-0002-2140-5352")))
@@ -10,15 +10,15 @@ Suggests: bibtex, covr, rorcid, testthat, stringr, htmltools
 License: GPL-3
 Encoding: UTF-8
 BugReports: https://github.com/ropenscilabs/vitae/issues
-URL: https://github.com/ropenscilabs/vitae
+URL: https://docs.ropensci.org/vitae/
 LazyData: true
 RoxygenNote: 6.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2019-01-03 07:20:59 UTC; mitchell
+Packaged: 2019-07-12 12:25:43 UTC; mitchell
 Author: Mitchell O'Hara-Wild [aut, cre]
     (<https://orcid.org/0000-0001-6729-7695>),
   Rob Hyndman [aut] (<https://orcid.org/0000-0002-2140-5352>)
 Maintainer: Mitchell O'Hara-Wild <mail@mitchelloharawild.com>
 Repository: CRAN
-Date/Publication: 2019-01-08 16:40:03 UTC
+Date/Publication: 2019-07-12 13:00:02 UTC

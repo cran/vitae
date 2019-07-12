@@ -7,9 +7,8 @@
 #' Given a bib file, this function will generate bibliographic entries for one or more types of bib entry.
 #'
 #' @param file A path to a .bib file.
-#' @param title Character string giving section title.
-#' @param sorting Character stringing specifying how entries should be sorted. Default is "ynt" meaning
-#' sort by year first, then name, then title.
+#' @param title Deprecated, use markdown sub-headers.
+#' @param sorting Deprecated, use [dplyr::arrange()] to re-order the bibliography.
 #' @param startlabel Optional label for first reference in the section.
 #' @param endlabel Optional label for last reference in the section.
 #'
@@ -18,17 +17,25 @@
 #' @author Rob J Hyndman & Mitchell O'Hara-Wild
 #'
 #' @export
-bibliography_entries <- function(file,
-                                 title = "Refereed journal papers",
-                                 sorting = "ynt",
+bibliography_entries <- function(file, title = NULL, sorting = NULL,
                                  startlabel = NULL,
                                  endlabel = NULL) {
+  if(!missing(title)){
+    warning("The `title` argument is deprecated. Please add bibliography titles using markdown sub-headers. This argument will be removed in the next release of vitae.")
+  }
+  if(!missing(sorting)){
+    warning("The `sorting` argument is deprecated. Please sort bibliography entries using `dplyr::arrange()`. This argument will be removed in the next release of vitae.")
+  }
   bib <- RefManageR::ReadBib(file, check = FALSE)
-  out <- dplyr::as_tibble(bib)
-  structure(mutate(out, key = names(bib$key)),
+  family <- map_chr(bib, function(x){
+    map_chr(x$author, function(names){
+      paste(names$family, collapse = " ")
+    }) %>% paste(collapse = ", ")
+  })
+  out <- dplyr::as_tibble(bib) %>%
+    mutate(surnames = family)
+  structure(mutate(out, key = unlist(bib$key)),
     file = file,
-    title = title,
-    sorting = sorting,
     startlabel = startlabel,
     endlabel = endlabel,
     preserve = "key",
@@ -40,21 +47,19 @@ bibliography_entries <- function(file,
 #' @importFrom knitr knit_print
 #' @export
 knit_print.vitae_bibliography <- function(x, options) {
-  title <- x %@% "title"
-  bibname <- paste("bib", title, sep = "")
+  bibname <- paste("bib", x %@% "file", format((as.numeric(Sys.time())%%60)*1e5, nsmall = 0), sep = "-")
   items <- x$key
-  sorting <- x %@% "sorting"
   startlabel <- x %@% "startlabel"
   endlabel <- x %@% "endlabel"
   out <- glue(
-    "
-    \\defbibheading{<<bibname>>}{\\subsection{<<title>>}}<<startlabel>>
+    '
+    \\defbibheading{<<bibname>>}{}<<startlabel>>
     \\addtocategory{<<bibname>>}{<<items>>}
-    \\newrefcontext[sorting=<<sorting>>]\\setcounter{papers}{0}\\pagebreak[3]
-    \\printbibliography[category=<<bibname>>,heading=<<bibname>>]<<endlabel>>\\setcounter{papers}{0}
+    \\newrefcontext[sorting=none]\\setcounter{papers}{0}\\pagebreak[3]
+    \\printbibliography[category=<<bibname>>,heading=none]<<endlabel>>\\setcounter{papers}{0}
 
     \\nocite{<<items>>}
-    ",
+    ',
     startlabel = ifelse(!is.null(startlabel),
       glue("\\label{<startlabel>}", .open = "<", .close = ">"),
       ""

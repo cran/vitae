@@ -42,6 +42,7 @@ You can also see that the output is set to `vitae::awesomecv`, which indicates t
 Currently, the YAML header allows these fields to be specified:
 
 - `name`: Your name
+- `surname`: Your family or last name
 - `position`: Your current workplace title or field
 - `address`: Your address
 - `date`: The current date
@@ -53,6 +54,7 @@ Currently, the YAML header allows these fields to be specified:
 - `linkedin`: Your LinkedIn username
 - `aboutme`: A short description that is included in a template specific location
 - `headcolor`: A featured colour for the template
+- `docname`: Control the document name (typically curriculum vitae, or résumé)
 
 
 ### The document body
