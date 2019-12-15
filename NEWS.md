@@ -1,12 +1,22 @@
+# vitae 0.2.1
+
+## Bug fixes
+
+* Fixed issue with `bibliography_entries()` not working on Windows.
+* Fixed issue with using `brief_entires()` / `detailed_entries()` mismatching argument order in variable names
+
 # vitae 0.2.0
 
 ## Breaking changes
+
 * Simplified `bibliography_entries` entries by removing `title` and `sorting`
   arguments. The title can be included using markdown, and sorting now respects
   the order of the tibble created by the function.
 
 ## Improvements
+
 * Added theme support for `moderncv`: classic, banking, oldstyle, fancy.
+* Added `latexcv` template using the classic theme.
 * Added `docname` to change the document name (@chrisumphlett, #42).
 * Added support for template specific formatting of surnames with `surname`.
 * Added *Data sources for vitae* vignette for using CV data from extermal sources.

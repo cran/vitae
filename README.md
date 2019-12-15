@@ -8,7 +8,7 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vitae)](https://cran.r-project.org/package=vitae)
 [![Travis build
-status](https://travis-ci.org/ropenscilabs/vitae.svg?branch=master)](https://travis-ci.org/ropenscilabs/vitae)
+status](https://travis-ci.org/mitchelloharawild/vitae.svg?branch=master)](https://travis-ci.org/mitchelloharawild/vitae)
 
 ## Templates and tools for making a Résumé/CV
 
@@ -25,11 +25,11 @@ install.packages('vitae')
 ```
 
 You can install the **development** version from
-[GitHub](https://github.com/ropenscilabs/vitae).
+[GitHub](https://github.com/mitchelloharawild/vitae).
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("ropenscilabs/vitae")
+devtools::install_github("mitchelloharawild/vitae")
 ```
 
 This package requires LaTeX to be installed on your computer. If you’re
@@ -47,7 +47,7 @@ tinytex::install_tinytex()
 The *vitae* package currently supports 5 popular CV templates, and
 adding more is a relatively simple process (details in the [creating
 vitae
-templates](https://ropenscilabs.github.io/vitae/articles/extending.html)
+templates](https://pkg.mitchelloharawild.com/vitae/articles/extending.html)
 vignette).
 
 Creating a new CV with `vitae` can be done using the RStudio R Markdown
@@ -58,7 +58,7 @@ information in the YAML header (name, position, social links…) and
 extended information in the main body. The main body of the CV is
 written using markdown, and allows for data-driven generation of entries
 using the [`*_entries`
-functions](https://ropenscilabs.github.io/vitae/reference/cventries.html).
+functions](https://pkg.mitchelloharawild.com/vitae/reference/cventries.html).
 This allows you to import your working history from other sources (such
 as ORCID, Google Scholar, or a maintained dataset), and include them
 programmatically into your CV.
@@ -71,6 +71,9 @@ Hyndman](https://orcid.org/0000-0002-2140-5352)’s education history:
 orcid_data <- do.call("rbind",
   rorcid::orcid_educations("0000-0002-2140-5352")$`0000-0002-2140-5352`$`affiliation-group`$summaries
 )
+#> Registered S3 method overwritten by 'httr':
+#>   method                 from
+#>   as.character.form_file crul
 ```
 
     #> 
@@ -84,12 +87,9 @@ orcid_data <- do.call("rbind",
     #>    education-summary.role-title education-summary.start-date.year.value
     #> 1                           PhD                                    1990
     #> 2 Bachelor of Science (Honours)                                    1985
-    #>   education-summary.end-date.year.value
-    #> 1                                  1992
-    #> 2                                  1988
-    #>   education-summary.organization.name
-    #> 1             University of Melbourne
-    #> 2             University of Melbourne
+    #>   education-summary.end-date.year.value education-summary.organization.name
+    #> 1                                  1992             University of Melbourne
+    #> 2                                  1988             University of Melbourne
     #>   education-summary.organization.address.city
     #> 1                                   Melbourne
     #> 2                                   Melbourne
@@ -126,6 +126,8 @@ presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
   - [Chris
     Umphlett](https://chrisumphlett.github.io/posts/vitae-package/)
   - [Nat Price](https://github.com/natbprice/cv)
+  - [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment\!)
+  - [Diogo M. Camacho](https://github.com/diogocamacho/CV)
 
 Add your vitae to the list using a PR.
 
@@ -133,5 +135,10 @@ Add your vitae to the list using a PR.
 
 Please note that the ‘vitae’ project is released with a [Contributor
 Code of
-Conduct](https://github.com/ropenscilabs/vitae/blob/master/.github/CODE_OF_CONDUCT.md).
+Conduct](https://github.com/mitchelloharawild/vitae/blob/master/.github/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
+
+The vitae project began as at [rOpenSci](https://ropensci.org/)’s
+[OzUnconf 2018](https://ozunconf18.ropensci.org/). A big thank you to
+rOpenSci and the event organisers for their work, which has played a big
+role in the formation of this package.
