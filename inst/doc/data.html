@@ -8,7 +8,7 @@
 <meta name="generator" content="pandoc" />
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 
 
@@ -18,9 +18,9 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
@@ -30,14 +30,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -46,9 +48,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -115,9 +117,6 @@ padding-right: 2em;
 font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 font-size: 14px;
 line-height: 1.35;
-}
-#header {
-text-align: center;
 }
 #TOC {
 clear: both;
@@ -286,7 +285,8 @@ code > span.st { color: #d14; }
 code > span.co { color: #888888; font-style: italic; } 
 code > span.ot { color: #007020; } 
 code > span.al { color: #ff0000; font-weight: bold; } 
-code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61717; background-color: #e3d2d2; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
 </style>
 
 
@@ -309,11 +309,11 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 <div id="spreadsheets-and-data-sets" class="section level2">
 <h2>Spreadsheets and data sets</h2>
 <p>The simplest source of entries for vitae are maintained dataset(s) of past experiences and achievements. Just like any dataset, these entries can be loaded into the document as a <code>data.frame</code> or <code>tibble</code> using functions from base R or the <a href="https://readr.tidyverse.org/"><code>readr</code> package</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;employment.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="st">  </span><span class="kw">detailed_entries</span>(???)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;employment.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(???)</span></code></pre></div>
 <p>It is also possible to load in data from excel using the <a href="https://readxl.tidyverse.org/"><code>readxl</code> package</a> or from Google Sheets using the <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code> package</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">&quot;awards.xlsx&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="st">  </span><span class="kw">brief_entries</span>(???)</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">&quot;awards.xlsx&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw">brief_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="orcid" class="section level2">
 <h2>ORCID</h2>
@@ -323,48 +323,48 @@ code > span.fu { color: #900; font-weight: bold; }  code > span.er { color: #a61
 </blockquote>
 <p>Essentially, use <code>rorcid::orcid_auth()</code> to obtain a token, which is added to either the <code>.Renviron</code> (<code>usethis::edit_r_environ()</code>) or <code>.Rprofile</code> (<code>usethis::edit_r_profile()</code>) using <code>ORCID_TOKEN=&lt;YOUR TOKEN HERE&gt;</code>.</p>
 <p>With the token setup, it is now possible to pull data from ORCID. As an example, here I source and display my education history using my ORCID ID of <code>&quot;0000-0001-6729-7695&quot;</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">edu &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">  rorcid<span class="op">::</span><span class="kw">orcid_educations</span>(<span class="st">&quot;0000-0001-6729-7695&quot;</span>)<span class="op">$</span><span class="st">`</span><span class="dt">0000-0001-6729-7695</span><span class="st">`</span><span class="op">$</span><span class="st">`</span><span class="dt">affiliation-group</span><span class="st">`</span><span class="op">$</span>summaries</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">edu <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="st">  </span><span class="kw">detailed_entries</span>(</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">    <span class="dt">what =</span> <span class="st">`</span><span class="dt">education-summary.role-title</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="dt">when =</span> glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}&quot;</span>),</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">    <span class="dt">with =</span> <span class="st">`</span><span class="dt">education-summary.organization.name</span><span class="st">`</span>,</a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="dt">where =</span> <span class="st">`</span><span class="dt">education-summary.organization.address.city</span><span class="st">`</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">  )</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>edu &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,</span>
+<span id="cb3-2"><a href="#cb3-2"></a>  rorcid<span class="op">::</span><span class="kw">orcid_educations</span>(<span class="st">&quot;0000-0001-6729-7695&quot;</span>)<span class="op">$</span><span class="st">`</span><span class="dt">0000-0001-6729-7695</span><span class="st">`</span><span class="op">$</span><span class="st">`</span><span class="dt">affiliation-group</span><span class="st">`</span><span class="op">$</span>summaries</span>
+<span id="cb3-3"><a href="#cb3-3"></a>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a>edu <span class="op">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw">detailed_entries</span>(</span>
+<span id="cb3-6"><a href="#cb3-6"></a>    <span class="dt">what =</span> <span class="st">`</span><span class="dt">education-summary.role-title</span><span class="st">`</span>,</span>
+<span id="cb3-7"><a href="#cb3-7"></a>    <span class="dt">when =</span> glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}&quot;</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>    <span class="dt">with =</span> <span class="st">`</span><span class="dt">education-summary.organization.name</span><span class="st">`</span>,</span>
+<span id="cb3-9"><a href="#cb3-9"></a>    <span class="dt">where =</span> <span class="st">`</span><span class="dt">education-summary.organization.address.city</span><span class="st">`</span></span>
+<span id="cb3-10"><a href="#cb3-10"></a>  )</span></code></pre></div>
 </div>
 <div id="google-scholar" class="section level2">
 <h2>Google scholar</h2>
 <p>Google Scholar does not require authentication to extract publications. Using the <a href="https://github.com/jkeirstead/scholar"><code>scholar</code> package</a>, it is easy to extract a user’s publications from their Google Scholar ID. To obtain publications for an individual, you would first find your ID which is accessible from your profile URL. For example, Rob Hyndman’s ID would be <code>&quot;vamErfkAAAAJ&quot;</code> (<a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en</a>).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">scholar<span class="op">::</span><span class="kw">get_publications</span>(<span class="st">&quot;vamErfkAAAAJ&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw">detailed_entries</span>(</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="dt">what =</span> title,</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">    <span class="dt">when =</span> year,</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="dt">with =</span> author,</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">    <span class="dt">where =</span> journal,</a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="dt">why =</span> cites</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">  )</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>scholar<span class="op">::</span><span class="kw">get_publications</span>(<span class="st">&quot;vamErfkAAAAJ&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="dt">what =</span> title,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>    <span class="dt">when =</span> year,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>    <span class="dt">with =</span> author,</span>
+<span id="cb4-6"><a href="#cb4-6"></a>    <span class="dt">where =</span> journal,</span>
+<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">why =</span> cites</span>
+<span id="cb4-8"><a href="#cb4-8"></a>  )</span></code></pre></div>
 </div>
 <div id="bibliography-files" class="section level2">
 <h2>Bibliography files</h2>
 <p>The vitae package directly supports loading <code>*.bib</code> files using the <code>bibliography_entries()</code> function, which formats the entries in a bibliography style.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>)</span></code></pre></div>
 <p>It is also possible to display the contents of your bibliography using template specific entries formats.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw">detailed_entries</span>(???)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
 <p>A list of R packages that you have helped develop can be obtained using the <a href="https://github.com/r-hub/pkgsearch"><code>pkgsearch</code> package</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">pkgsearch<span class="op">::</span><span class="kw">ps</span>(<span class="st">&quot;O'Hara-Wild&quot;</span>,<span class="dt">size =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">map_lgl</span>(package_data, <span class="op">~</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;Mitchell O'Hara-Wild&quot;</span>, .x<span class="op">$</span>Author, <span class="dt">fixed =</span> <span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="st">  </span><span class="kw">brief_entries</span>(</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="dt">what =</span> title, </a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">    <span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">year</span>(date), </a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">    <span class="dt">with =</span> description</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">  )</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>pkgsearch<span class="op">::</span><span class="kw">ps</span>(<span class="st">&quot;O&#39;Hara-Wild&quot;</span>,<span class="dt">size =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">map_lgl</span>(package_data, <span class="op">~</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;Mitchell O&#39;Hara-Wild&quot;</span>, .x<span class="op">$</span>Author, <span class="dt">fixed =</span> <span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">brief_entries</span>(</span>
+<span id="cb7-5"><a href="#cb7-5"></a>    <span class="dt">what =</span> title, </span>
+<span id="cb7-6"><a href="#cb7-6"></a>    <span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">year</span>(date), </span>
+<span id="cb7-7"><a href="#cb7-7"></a>    <span class="dt">with =</span> description</span>
+<span id="cb7-8"><a href="#cb7-8"></a>  )</span></code></pre></div>
 </div>
 
 
