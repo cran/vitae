@@ -1,3 +1,55 @@
+# vitae 0.3.0
+
+This release makes substantial changes to how bibliographies included in a
+document. The package now uses pandoc-citeproc for handling bibliographies, 
+rather than biblatex and the RefManageR package (partly due to CRAN archival).
+This is more consistent with how bibliographies are generated in other rmarkdown
+documents, and importantly it now allows custom CSL formats to be used (the most
+common request). Another advantage of this change is that non-bib citation 
+formats can now be used (including YAML and CSL-JSON), and that changes to the 
+table are directly applied to the resulting bibliography output.
+
+The same `bibliography_entires("/path/to/file.bib")` interface 
+applies, however the result may now differ slightly:
+1. The column names and structure of the intermediate tibble has been changed to
+   better align with the CSL-JSON format used by pandoc. This allows the 
+   modified contents of the tibble to be correctly reflected in the resulting 
+   output.
+2. The default style of the bibliographies is now the APA CV format, which is 
+   similar but not identical to the previous default. This should be easier
+   to customise now by providing a custom CSL (much like any other rmarkdown
+   document).
+
+Another advantage to moving to use pandoc-citeproc for bibliographies is that
+templates for other output formats (like HTML and Word) can now be added.
+
+More details can be found here: https://pkg.mitchelloharawild.com/vitae/reference/bibliography_entries.html
+
+## Breaking changes
+
+* The `startlabel` and `endlabel` arguments of `bibliography_entries()` are now
+  defunct.
+* The column names and structure of the `bibliography_entires()` tibble have
+  changed for consistency with the CSL-JSON format. The mapping of commonly used
+  column names are:
+  - bibtype -> type (note that the values are converted to CSL-JSON format)
+  - key -> id
+  - year -> issued
+* The default style of bibliography entries is now the APA CV format, which has
+  been modified to match the order of the tibble, rather than the default of
+  reverse chronological order. This bibliography style can be customised using 
+  the csl argument in the yaml front matter.
+  
+## Improvements
+
+* `bibliography_entries()` are now handled using a pandoc's cite-proc. This
+  means that typical approaches for specifying CSL and other citeproc parameters
+  will work as expected.
+* The `citation_package` and `latex_engine` options are now changeable by users 
+  for all output formats.
+* The `why` argument of `detailed_entries()` can now optionally be provided as a
+  list of characters.
+
 # vitae 0.2.2
 
 ## Bug fixes
@@ -9,7 +61,8 @@
 ## Bug fixes
 
 * Fixed issue with `bibliography_entries()` not working on Windows.
-* Fixed issue with using `brief_entires()` / `detailed_entries()` mismatching argument order in variable names
+* Fixed issue with using `brief_entires()` / `detailed_entries()` mismatching 
+  argument order in variable names
 
 # vitae 0.2.0
 

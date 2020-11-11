@@ -4,30 +4,41 @@
 \alias{bibliography_entries}
 \title{Print bibliography section}
 \usage{
-bibliography_entries(
-  file,
-  title = NULL,
-  sorting = NULL,
-  startlabel = NULL,
-  endlabel = NULL
-)
+bibliography_entries(file, startlabel = NULL, endlabel = NULL)
 }
 \arguments{
-\item{file}{A path to a .bib file.}
+\item{file}{A path to a bibliography file understood by \code{\link[rmarkdown:pandoc_citeproc_convert]{rmarkdown::pandoc_citeproc_convert()}}.}
 
-\item{title}{Deprecated, use markdown sub-headers.}
+\item{startlabel}{Defunct.}
 
-\item{sorting}{Deprecated, use \code{\link[dplyr:arrange]{dplyr::arrange()}} to re-order the bibliography.}
-
-\item{startlabel}{Optional label for first reference in the section.}
-
-\item{endlabel}{Optional label for last reference in the section.}
+\item{endlabel}{Defunct.}
 }
 \value{
-Prints bibliographic entries
+A dataset representing the bibliographic entries, suitable for
+generating a reference section in a document.
 }
 \description{
-Given a bib file, this function will generate bibliographic entries for one or more types of bib entry.
+Given a bibliography file, this function will generate bibliographic entries
+for one or more types of bib entry.
+}
+\examples{
+
+# Create a bibliography from a set of packages
+bib <- tempfile(fileext = ".bib")
+knitr::write_bib(c("vitae", "tibble"), bib)
+
+# Import the bibliography entries into a CV
+bibliography_entries(bib)
+
+# The order of these entries can be customised using `dplyr::arrange()`
+bibliography_entries(bib) \%>\%
+  arrange(desc(title))
+
+# For more complex fields like author, you can also sort by component fields.
+# For example, use `author$family` to sort by family names.
+bibliography_entries(bib) \%>\%
+  arrange(desc(author$family))
+
 }
 \author{
 Rob J Hyndman & Mitchell O'Hara-Wild

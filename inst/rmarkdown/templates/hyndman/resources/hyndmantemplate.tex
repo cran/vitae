@@ -85,11 +85,9 @@ $endif$
 $if(highlighting-macros)$
 $highlighting-macros$
 $endif$
-$if(tables)$
 \usepackage{longtable,booktabs}
 % Fix footnotes in tables (requires footnote package)
 \IfFileExists{footnote.sty}{\usepackage{footnote}\makesavenoteenv{long table}}{}
-$endif$
 $if(graphics)$
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -266,34 +264,31 @@ $if(linestretch)$
 \usepackage{setspace}
 $endif$
 
-
-% Templates for detailed entries
-% Arguments: what when with where why
-\usepackage{etoolbox}
-
-% Templates for detailed entries
-% Arguments: what when with where why
-\def\detaileditem#1#2#3#4#5{
-#2 & \parbox[t]{0.85\textwidth}{%
-      \textbf{#1}\hfill{\footnotesize #3}\\
-      \ifx#4\empty\else#4\par\fi%
-      \ifx#5\empty\else{%
-        \vspace{0.1cm}\begin{minipage}{0.7\textwidth}%
-        \begin{itemize}#5\end{itemize}%
-        \end{minipage}}\fi%
-      \vspace{\parsep}}\\}
-%\def\detailedsection#1{\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}#1\end{tabular*}}
 \setlength\LTleft{0pt}
 \setlength\LTright{0pt}
-\def\detailedsection#1{\begin{longtable}{@{\extracolsep{\fill}}ll}#1\end{longtable}}
 
-% Templates for brief entries
-% Arguments: what when with
-\def\briefitem#1#2#3{
-#2 & \parbox[t]{0.85\textwidth}{%
-      \textbf{#1}\\[-0.1cm]{\footnotesize #3}}\\[0.4cm]}
-%\def\briefsection#1{\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ll}#1\end{tabular*}}
-\def\briefsection#1{\begin{longtable}{@{\extracolsep{\fill}}ll}#1\end{longtable}}
+% Pandoc CSL macros
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\hfill #1~}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \cslhangindent - \csllabelwidth}{#1}\vspace{0.8ex}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
 
 \def\endfirstpage{\newpage}
 

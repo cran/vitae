@@ -14,23 +14,83 @@
 
 <title>Data sources for vitae</title>
 
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+<style type="text/css">
+a.anchor-section {margin-left: 10px; visibility: hidden; color: inherit;}
+a.anchor-section::before {content: '#';}
+.hasAnchor:hover a.anchor-section {visibility: visible;}
+</style>
+<script>// Anchor sections v1.0 written by Atsushi Yasumoto on Oct 3rd, 2020.
+document.addEventListener('DOMContentLoaded', function() {
+  // Do nothing if AnchorJS is used
+  if (typeof window.anchors === 'object' && anchors.hasOwnProperty('hasAnchorJSLink')) {
+    return;
+  }
+
+  const h = document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+
+  // Do nothing if sections are already anchored
+  if (Array.from(h).some(x => x.classList.contains('hasAnchor'))) {
+    return null;
+  }
+
+  // Use section id when pandoc runs with --section-divs
+  const section_id = function(x) {
+    return ((x.classList.contains('section') || (x.tagName === 'SECTION'))
+            ? x.id : '');
+  };
+
+  // Add anchors
+  h.forEach(function(x) {
+    const id = x.id || section_id(x.parentElement);
+    if (id === '') {
+      return null;
+    }
+    let anchor = document.createElement('a');
+    anchor.href = '#' + id;
+    anchor.classList = ['anchor-section'];
+    x.classList.add('hasAnchor');
+    x.appendChild(anchor);
+  });
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css" data-origin="pandoc">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
 div.sourceCode { margin: 1em 0; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -50,7 +110,7 @@ pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-le
 div.sourceCode
   {   }
 @media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -305,15 +365,15 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <p>Using data to dynamically build your Résumé or CV makes many powerful integrations possible. By using data to populate entries in the document, it becomes easy to manipulate and select relevant experiences for a particular application. There are many sources of data which can be used to populate a CV with vitae, some commonly sources are summarised in this vignette.</p>
 <p>The main purpose of sourcing your CV entries from common data sources is to extend the “do not repeat yourself” programming philosophy to maintaining a CV. If you maintain publications on <a href="https://orcid.org/">ORCID</a> you shouldn’t need to repeat these entries in your CV. If a list of talks you’ve made can be found on your website, avoid repeating the list in multiple locations to ensure that they both contain the same content.</p>
-<p>This vignette is far from comprehensive, and there are no doubt many other interesting ways to populate your CV with data. If you’re using a data source that you think others should know about, consider making a <a href="https://github.com/ropenscilabs/vitae/pulls">pull request</a> that adds your method to this vignette.</p>
+<p>This vignette is far from comprehensive, and there are no doubt many other interesting ways to populate your CV with data. If you’re using a data source that you think others should know about, consider making a <a href="https://github.com/mitchelloharawild/vitae/pulls">pull request</a> that adds your method to this vignette.</p>
 <div id="spreadsheets-and-data-sets" class="section level2">
 <h2>Spreadsheets and data sets</h2>
 <p>The simplest source of entries for vitae are maintained dataset(s) of past experiences and achievements. Just like any dataset, these entries can be loaded into the document as a <code>data.frame</code> or <code>tibble</code> using functions from base R or the <a href="https://readr.tidyverse.org/"><code>readr</code> package</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a>readr<span class="op">::</span><span class="kw">read_csv</span>(<span class="st">&quot;employment.csv&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(???)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;employment.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(???)</span></code></pre></div>
 <p>It is also possible to load in data from excel using the <a href="https://readxl.tidyverse.org/"><code>readxl</code> package</a> or from Google Sheets using the <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code> package</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>readxl<span class="op">::</span><span class="kw">read_excel</span>(<span class="st">&quot;awards.xlsx&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="st">  </span><span class="kw">brief_entries</span>(???)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;awards.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brief_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="orcid" class="section level2">
 <h2>ORCID</h2>
@@ -323,48 +383,48 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </blockquote>
 <p>Essentially, use <code>rorcid::orcid_auth()</code> to obtain a token, which is added to either the <code>.Renviron</code> (<code>usethis::edit_r_environ()</code>) or <code>.Rprofile</code> (<code>usethis::edit_r_profile()</code>) using <code>ORCID_TOKEN=&lt;YOUR TOKEN HERE&gt;</code>.</p>
 <p>With the token setup, it is now possible to pull data from ORCID. As an example, here I source and display my education history using my ORCID ID of <code>&quot;0000-0001-6729-7695&quot;</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>edu &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span class="st">&quot;rbind&quot;</span>,</span>
-<span id="cb3-2"><a href="#cb3-2"></a>  rorcid<span class="op">::</span><span class="kw">orcid_educations</span>(<span class="st">&quot;0000-0001-6729-7695&quot;</span>)<span class="op">$</span><span class="st">`</span><span class="dt">0000-0001-6729-7695</span><span class="st">`</span><span class="op">$</span><span class="st">`</span><span class="dt">affiliation-group</span><span class="st">`</span><span class="op">$</span>summaries</span>
-<span id="cb3-3"><a href="#cb3-3"></a>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a>edu <span class="op">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5"></a><span class="st">  </span><span class="kw">detailed_entries</span>(</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    <span class="dt">what =</span> <span class="st">`</span><span class="dt">education-summary.role-title</span><span class="st">`</span>,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    <span class="dt">when =</span> glue<span class="op">::</span><span class="kw">glue</span>(<span class="st">&quot;{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}&quot;</span>),</span>
-<span id="cb3-8"><a href="#cb3-8"></a>    <span class="dt">with =</span> <span class="st">`</span><span class="dt">education-summary.organization.name</span><span class="st">`</span>,</span>
-<span id="cb3-9"><a href="#cb3-9"></a>    <span class="dt">where =</span> <span class="st">`</span><span class="dt">education-summary.organization.address.city</span><span class="st">`</span></span>
-<span id="cb3-10"><a href="#cb3-10"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>edu <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  rorcid<span class="sc">::</span><span class="fu">orcid_educations</span>(<span class="st">&quot;0000-0001-6729-7695&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">0000-0001-6729-7695</span><span class="st">`</span><span class="sc">$</span><span class="st">`</span><span class="at">affiliation-group</span><span class="st">`</span><span class="sc">$</span>summaries</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>edu <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">what =</span> <span class="st">`</span><span class="at">education-summary.role-title</span><span class="st">`</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">when =</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">&quot;{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}&quot;</span>),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">with =</span> <span class="st">`</span><span class="at">education-summary.organization.name</span><span class="st">`</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">where =</span> <span class="st">`</span><span class="at">education-summary.organization.address.city</span><span class="st">`</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="google-scholar" class="section level2">
 <h2>Google scholar</h2>
 <p>Google Scholar does not require authentication to extract publications. Using the <a href="https://github.com/jkeirstead/scholar"><code>scholar</code> package</a>, it is easy to extract a user’s publications from their Google Scholar ID. To obtain publications for an individual, you would first find your ID which is accessible from your profile URL. For example, Rob Hyndman’s ID would be <code>&quot;vamErfkAAAAJ&quot;</code> (<a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en</a>).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>scholar<span class="op">::</span><span class="kw">get_publications</span>(<span class="st">&quot;vamErfkAAAAJ&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(</span>
-<span id="cb4-3"><a href="#cb4-3"></a>    <span class="dt">what =</span> title,</span>
-<span id="cb4-4"><a href="#cb4-4"></a>    <span class="dt">when =</span> year,</span>
-<span id="cb4-5"><a href="#cb4-5"></a>    <span class="dt">with =</span> author,</span>
-<span id="cb4-6"><a href="#cb4-6"></a>    <span class="dt">where =</span> journal,</span>
-<span id="cb4-7"><a href="#cb4-7"></a>    <span class="dt">why =</span> cites</span>
-<span id="cb4-8"><a href="#cb4-8"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>scholar<span class="sc">::</span><span class="fu">get_publications</span>(<span class="st">&quot;vamErfkAAAAJ&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">what =</span> title,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">when =</span> year,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">with =</span> author,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">where =</span> journal,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">why =</span> cites</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 <div id="bibliography-files" class="section level2">
 <h2>Bibliography files</h2>
 <p>The vitae package directly supports loading <code>*.bib</code> files using the <code>bibliography_entries()</code> function, which formats the entries in a bibliography style.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>)</span></code></pre></div>
 <p>It is also possible to display the contents of your bibliography using template specific entries formats.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="st">  </span><span class="kw">detailed_entries</span>(???)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
 <p>A list of R packages that you have helped develop can be obtained using the <a href="https://github.com/r-hub/pkgsearch"><code>pkgsearch</code> package</a>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>pkgsearch<span class="op">::</span><span class="kw">ps</span>(<span class="st">&quot;O&#39;Hara-Wild&quot;</span>,<span class="dt">size =</span> <span class="dv">100</span>) <span class="op">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a><span class="st">  </span><span class="kw">filter</span>(<span class="kw">map_lgl</span>(package_data, <span class="op">~</span><span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;Mitchell O&#39;Hara-Wild&quot;</span>, .x<span class="op">$</span>Author, <span class="dt">fixed =</span> <span class="ot">TRUE</span>))) <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-3"><a href="#cb7-3"></a><span class="st">  </span><span class="kw">as_tibble</span>() <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="st">  </span><span class="kw">brief_entries</span>(</span>
-<span id="cb7-5"><a href="#cb7-5"></a>    <span class="dt">what =</span> title, </span>
-<span id="cb7-6"><a href="#cb7-6"></a>    <span class="dt">when =</span> lubridate<span class="op">::</span><span class="kw">year</span>(date), </span>
-<span id="cb7-7"><a href="#cb7-7"></a>    <span class="dt">with =</span> description</span>
-<span id="cb7-8"><a href="#cb7-8"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pkgsearch<span class="sc">::</span><span class="fu">ps</span>(<span class="st">&quot;O&#39;Hara-Wild&quot;</span>,<span class="at">size =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">map_lgl</span>(package_data, <span class="sc">~</span> <span class="fu">grepl</span>(<span class="st">&quot;Mitchell O&#39;Hara-Wild&quot;</span>, .x<span class="sc">$</span>Author, <span class="at">fixed =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brief_entries</span>(</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">what =</span> title, </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">when =</span> lubridate<span class="sc">::</span><span class="fu">year</span>(date), </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">with =</span> description</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
 
 

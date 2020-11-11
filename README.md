@@ -7,8 +7,11 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vitae)](https://cran.r-project.org/package=vitae)
-[![Travis build
-status](https://travis-ci.org/mitchelloharawild/vitae.svg?branch=master)](https://travis-ci.org/mitchelloharawild/vitae)
+![Check
+status](https://github.com/mitchelloharawild/vitae/workflows/R-CMD-check/badge.svg)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Downloads](https://cranlogs.r-pkg.org/badges/vitae)](https://cran.r-project.org/package=vitae)
 
 ## Templates and tools for making a Résumé/CV
 
@@ -71,19 +74,8 @@ Hyndman](https://orcid.org/0000-0002-2140-5352)’s education history:
 orcid_data <- do.call("rbind",
   rorcid::orcid_educations("0000-0002-2140-5352")$`0000-0002-2140-5352`$`affiliation-group`$summaries
 )
-#> Registered S3 method overwritten by 'httr':
-#>   method                 from
-#>   as.character.form_file crul
 ```
 
-    #> 
-    #> Attaching package: 'dplyr'
-    #> The following objects are masked from 'package:stats':
-    #> 
-    #>     filter, lag
-    #> The following objects are masked from 'package:base':
-    #> 
-    #>     intersect, setdiff, setequal, union
     #>    education-summary.role-title education-summary.start-date.year.value
     #> 1                           PhD                                    1990
     #> 2 Bachelor of Science (Honours)                                    1985
@@ -120,18 +112,22 @@ presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 
 ## Examples of using vitae
 
-  - [Mitchell O’Hara-Wild](https://github.com/mitchelloharawild/CV)
-  - [Rob Hyndman](https://github.com/robjhyndman/CV)
-  - [Eric R. Scott](https://github.com/Aariq/curriculum-vitae)
-  - [Chris
-    Umphlett](https://chrisumphlett.github.io/posts/vitae-package/)
-  - [Nat Price](https://github.com/natbprice/cv)
-  - [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment\!)
-  - [Diogo M. Camacho](https://github.com/diogocamacho/CV)
+-   [Mitchell O’Hara-Wild](https://github.com/mitchelloharawild/CV)
+-   [Rob Hyndman](https://github.com/robjhyndman/CV)
+-   [Eric R. Scott](https://github.com/Aariq/curriculum-vitae)
+-   [Chris Umphlett](http://chrisumphlett.com/posts/vitae-package/)
+-   [Nat Price](https://github.com/natbprice/cv)
+-   [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment!)
+-   [JooYoung Seo](https://github.com/jooyoungseo/jy_CV) (printing
+    multiple bibliographic entries according to a given csl file)
+-   [Diogo M. Camacho](https://github.com/diogocamacho/CV)
+-   [Han Zhang](https://github.com/HanZhang-psych/CV) (custom csl files)
+-   [Bryan Jenks](https://github.com/tallguyjenks/CV)
+-   [Lorena Abad](https://github.com/loreabad6/R-CV)
 
 Add your vitae to the list using a PR.
 
------
+------------------------------------------------------------------------
 
 Please note that the ‘vitae’ project is released with a [Contributor
 Code of

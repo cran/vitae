@@ -1,10 +1,10 @@
 #' Output format for vitae
 #'
 #' This output format provides support for including LaTeX dependencies and
-#' bibliography entries in extension of the bookdown::pdf_document2() format.
+#' bibliography entries in extension of the `rmarkdown::pdf_document()` format.
 #'
 #' @inheritParams rmarkdown::pdf_document
-#' @param ... Arguments passed to bookdown::pdf_document2().
+#' @param ... Arguments passed to rmarkdown::pdf_document().
 #' @param pandoc_vars Pandoc variables to be passed to the template.
 #'
 #' @export
@@ -12,93 +12,39 @@ cv_document <- function(..., pandoc_args = NULL, pandoc_vars = NULL) {
   for (i in seq_along(pandoc_vars)){
     pandoc_args <- c(pandoc_args, rmarkdown::pandoc_variable_arg(names(pandoc_vars)[[i]], pandoc_vars[[i]]))
   }
-  config <- bookdown::pdf_document2(..., pandoc_args = pandoc_args)
 
-  pre <- config$pre_processor
-  config$pre_processor <- function(metadata, input_file, runtime, knit_meta,
-                                     files_dir, output_dir) {
-    args <- pre(metadata, input_file, runtime, knit_meta, files_dir, output_dir)
-
-    header_contents <- NULL
-
-    if (has_meta(knit_meta, "latex_dependency")) {
-      header_contents <- c(
-        header_contents,
-        latex_dependencies_as_string(
-          flatten_meta(knit_meta, function(x) inherits(x, "latex_dependency"))
-        )
-      )
-    }
-
-    if (has_meta(knit_meta, "biliography_entry")) {
-      header_contents <- c(
-        header_contents,
-        readLines(system.file("bib_format.tex", package = "vitae")),
-        bibliography_header(
-          flatten_meta(knit_meta, function(x) inherits(x, "biliography_entry"))
-        )
-      )
-    }
-
-    header_file <- tempfile("cv-header", fileext = ".tex")
-    xfun::write_utf8(header_contents, header_file)
-    args <- c(args, rmarkdown::includes_to_pandoc_args(rmarkdown::includes(in_header = header_file)))
-    args
-  }
-  config
-}
-
-flatten_meta <- function(knit_meta, test) {
-  all_meta <- list()
-  for (dep in knit_meta) {
-    if (is.null(names(dep)) && is.list(dep)) {
-      inner_meta <- flatten_meta(dep, test)
-      all_meta <- append(all_meta, inner_meta)
-    } else if (test(dep)) {
-      all_meta[[length(all_meta) + 1]] <- dep
-    }
-  }
-  all_meta
-}
-
-latex_dependencies_as_string <- function(dependencies) {
-  lines <- sapply(dependencies, function(dep) {
-    opts <- paste(dep$options, collapse = ",")
-    if (opts != "") opts <- paste0("[", opts, "]")
-    # \\usepackage[opt1,opt2]{pkgname}
-    paste0("\\usepackage", opts, "{", dep$name, "}")
-  })
-  paste(unique(lines), collapse = "\n")
-}
-
-bibliography_header <- function(bibs) {
-  titles <- lapply(bibs, function(x) x[["title"]])
-  files <- lapply(bibs, function(x) x[["file"]])
-  c(
-    paste0("\\DeclareBibliographyCategory{", titles, "}"),
-    paste0("\\bibliography{", paste0(unique(files), collapse = ", "), "}")
+  # Inject multiple-bibliographies lua filter
+  mult_bib <- file.path(tempdir(), "multiple-bibliographies.lua")
+  cat(
+    gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
+         readLines(system.file("multiple-bibliographies.lua", package = "vitae", mustWork = TRUE))),
+    file = mult_bib, sep = "\n"
   )
-}
 
-has_meta <- function(knit_meta, class) {
-  if (inherits(knit_meta, class)) {
-    return(TRUE)
-  }
+  pandoc_args <- c(
+    c(rbind("--lua-filter", mult_bib)),
+    pandoc_args
+  )
 
-  if (is.list(knit_meta)) {
-    for (meta in knit_meta) {
-      if (is.null(names(meta))) {
-        if (has_meta(meta, class)) {
-          return(TRUE)
-        }
-      } else {
-        if (inherits(meta, class)) {
-          return(TRUE)
-        }
-      }
-    }
+  out <- rmarkdown::pdf_document(..., pandoc_args = pandoc_args)
+  pre <- out$pre_processor
+  out$pre_processor <- function (metadata, input_file, runtime, knit_meta,
+                                 files_dir, output_dir){
+    pre(metadata, input_file, runtime, knit_meta,
+               files_dir, output_dir)
+
+    # Add citations to front matter yaml, there may be a better way to do this.
+    meta_nocite <- vapply(knit_meta, inherits, logical(1L), "vitae_nocite")
+    metadata$nocite <- c(metadata$nocite, paste0("@", do.call(c, knit_meta[meta_nocite]), collapse = ", "))
+    if(is.null(metadata$csl)) metadata$csl <- system.file("vitae.csl", package = "vitae", mustWork = TRUE)
+
+    body <- partition_yaml_front_matter(xfun::read_utf8(input_file))$body
+    xfun::write_utf8(
+      c("---", yaml::as.yaml(metadata), "---", body),
+      input_file
+    )
   }
-  FALSE
+  out
 }
 
 copy_supporting_files <- function(template) {
