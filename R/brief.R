@@ -8,12 +8,19 @@ brief_entries <- function(data, what, when, with, .protect = TRUE) {
     with = enquo(with) %missing% NA_character_
   )
 
-  out <- dplyr::as_tibble(map(edu_exprs, rlang::eval_tidy, data = data))
+  out <- dplyr::as_tibble(map(edu_exprs, eval_tidy, data = data))
   structure(out,
     preserve = names(edu_exprs),
     protect = .protect,
     class = c("vitae_brief", "vitae_preserve", class(data))
   )
+}
+
+#' @importFrom tibble tbl_sum
+#' @export
+tbl_sum.vitae_brief <- function(x) {
+  x <- NextMethod()
+  c(x, "vitae type" = "brief entries")
 }
 
 #' @importFrom knitr knit_print

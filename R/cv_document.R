@@ -4,17 +4,23 @@
 #' bibliography entries in extension of the `rmarkdown::pdf_document()` format.
 #'
 #' @inheritParams rmarkdown::pdf_document
+#' @inheritParams bookdown::pdf_document2
 #' @param ... Arguments passed to rmarkdown::pdf_document().
 #' @param pandoc_vars Pandoc variables to be passed to the template.
 #'
 #' @export
-cv_document <- function(..., pandoc_args = NULL, pandoc_vars = NULL) {
+cv_document <- function(..., pandoc_args = NULL, pandoc_vars = NULL,
+                        base_format = rmarkdown::pdf_document) {
   for (i in seq_along(pandoc_vars)){
     pandoc_args <- c(pandoc_args, rmarkdown::pandoc_variable_arg(names(pandoc_vars)[[i]], pandoc_vars[[i]]))
   }
 
   # Inject multiple-bibliographies lua filter
   mult_bib <- file.path(tempdir(), "multiple-bibliographies.lua")
+  if(rmarkdown::pandoc_version() <= package_version("2.7.3")) {
+    warn(sprintf("Detected pandoc version %s, which may cause issues with bibliography_entries().
+Please update pandoc if you have any issues knitting bibliographies (this can be done by updating RStudio).", rmarkdown::pandoc_version()))
+  }
   cat(
     gsub("<<PANDOC_PATH>>", rmarkdown::find_pandoc()$dir, fixed = TRUE,
          readLines(system.file("multiple-bibliographies.lua", package = "vitae", mustWork = TRUE))),
@@ -26,7 +32,7 @@ cv_document <- function(..., pandoc_args = NULL, pandoc_vars = NULL) {
     pandoc_args
   )
 
-  out <- rmarkdown::pdf_document(..., pandoc_args = pandoc_args)
+  out <- base_format(..., pandoc_args = pandoc_args)
   pre <- out$pre_processor
   out$pre_processor <- function (metadata, input_file, runtime, knit_meta,
                                  files_dir, output_dir){

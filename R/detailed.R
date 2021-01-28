@@ -11,14 +11,25 @@
 #' @param when The time of the entry (such as the period spent in the role).
 #' @param with The company or organisation.
 #' @param where The location of the entry.
-#' @param why Any additional information, to be included as dot points. Each
-#' entry for why is provided in long form (where the what, when, with, and where
-#' is duplicated)
+#' @param why Any additional information, to be included as dot points. Multiple
+#' dot points can be provided via a list column.
+#' Alternatively, if the same `what`, `when`, `with`, and `where` combinations
+#' are found in multiple rows, the `why` entries of these rows will be combined
+#' into a list.
 #' @param .protect When TRUE, inputs to the previous arguments will be protected
 #' from being parsed as LaTeX code.
 #'
 #' @name cv_entries
 #' @rdname cv_entries
+#'
+#' @examples
+#' packages_used <- tibble::tribble(
+#'   ~ package, ~ date, ~ language, ~ timezone, ~ details,
+#'   "vitae", Sys.Date(), "R", Sys.timezone(), c("Making my CV with vitae.", "Multiple why entries."),
+#'   "rmarkdown", Sys.Date()-10, "R", Sys.timezone(), "Writing reproducible, dynamic reports using R."
+#' )
+#' packages_used %>%
+#'   detailed_entries(what = package, when = date, with = language, where = timezone, why = details)
 #'
 #' @importFrom rlang enquo expr_text !! := sym syms
 #' @export
@@ -31,7 +42,7 @@ detailed_entries <- function(data, what, when, with, where, why, .protect = TRUE
     why = enquo(why) %missing% NA_character_
   )
 
-  edu_vars <- dplyr::as_tibble(map(edu_exprs[-5], rlang::eval_tidy, data = data))
+  edu_vars <- dplyr::as_tibble(map(edu_exprs[-5], eval_tidy, data = data))
   data[names(edu_vars)] <- edu_vars
   data <- dplyr::group_by(data, !!!syms(names(edu_vars)))
   out <- dplyr::distinct(data, !!!syms(names(edu_exprs)[-5]))
@@ -43,6 +54,13 @@ detailed_entries <- function(data, what, when, with, where, why, .protect = TRUE
     protect = .protect,
     class = c("vitae_detailed", "vitae_preserve", class(data))
   )
+}
+
+#' @importFrom tibble tbl_sum
+#' @export
+tbl_sum.vitae_detailed <- function(x) {
+  x <- NextMethod()
+  c(x, "vitae type" = "detailed entries")
 }
 
 #' @importFrom knitr knit_print

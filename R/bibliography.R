@@ -39,24 +39,33 @@ bibliography_entries <- function(file, startlabel = NULL, endlabel = NULL) {
     warning("The `endlabel` argument is defunct and will be removed in the next release.\n. Please use a different approach to including labels.")
   }
 
-  bib <- yaml::yaml.load(rmarkdown::pandoc_citeproc_convert(file, "yaml"))$references
+  bib <- rmarkdown::pandoc_citeproc_convert(file)
 
-  # Deconstruct yaml into tibble
-  bib <- dplyr::bind_rows(lapply(
-    bib,
-    function(x){
-      el_is_list <- vapply(x, is.list, logical(1L))
-      x[el_is_list] <- lapply(x[el_is_list], list)
-      chr_fields <- intersect(names(x), c("number", "issue", "page", "volume", "version"))
-      x[chr_fields] <- lapply(x[chr_fields], as.character)
-      tibble::as_tibble(x)
-    }
-  ))
-  bib$author <- csl_name(bib$author)
-  if(is.list(bib$issued)) bib$issued <- csl_date(bib$issued)
+  bib_ptype <- csl_fields[unique(vec_c(!!!lapply(bib, names)))]
+  bib_ptype <- vctrs::vec_init(bib_ptype, 1)
+
+  # Add missing values to complete rectangular structure
+  bib <- lapply(bib, function(x) {
+    # missing_cols <- setdiff(names(bib_ptype), names(x))
+    # x[missing_cols] <- as.list(bib_ptype[missing_cols])
+    array_pos <- lengths(x) > 1
+    x[array_pos] <- lapply(x[array_pos], list)
+    bib_ptype[names(x)] <- x
+    bib_ptype
+  })
+
+  bib <- vctrs::vec_rbind(!!!bib, .ptype = bib_ptype)
+
   tibble::new_tibble(bib, preserve = "id",
                      class = c("vitae_bibliography", "vitae_preserve"),
                      nrow = nrow(bib))
+}
+
+#' @importFrom tibble tbl_sum
+#' @export
+tbl_sum.vitae_bibliography <- function(x) {
+  x <- NextMethod()
+  c(x, "vitae type" = "bibliography entries")
 }
 
 #' @importFrom knitr knit_print
@@ -69,7 +78,7 @@ knit_print.vitae_bibliography <- function(x, options = knitr::opts_current$get()
       x <- as.list(x)
       el_is_list <- vapply(x, is.list, logical(1L))
       x[el_is_list] <- lapply(x[el_is_list], `[[`, i=1)
-      Filter(function(x) length(x) > 0, x)
+      Filter(function(x) !is.na(x[1]) && length(x) > 0, x)
     })
   if((options$cache %||% 0) == 0) {
     file <- tempfile(fileext = ".yaml")

@@ -1,3 +1,35 @@
+# vitae 0.4.0
+
+This release adds the first HTML template to the package, using the improved
+templating system. The `bibliography_entires()` intermediate tibble output is
+rewritten, which now fully represents the CSL-JSON schema.
+
+## New templates
+
+* Added the `vitae::markdowncv` template, which is the markdown-cv template in
+  various themes by Eliseo Papa (@elipapa). This is the first HTML template 
+  available in the package.
+
+## Improvements
+
+* Screenshot previews of the output formats can now be found in the README and 
+  in the documentation for each output format (#72).
+* Added tibble header to describe the output type in the document.
+* Rewrote `bibliography_entries()` intermediate data format to better follow
+  the CSL-JSON schema. This includes `csl_name()` and `csl_date()` helpers for
+  parsing and manipulating bibliography data.
+
+## Bug fixes
+
+* Fixed "na.character" entries resulting in `bibliography_entries()` that differ
+  in the fields used (#147).
+* Fixed issue with underscores in moderncv template's Twitter social and updated
+  template to use https. You will need to delete your moderncv.sty file to get
+  these updates (#117).
+* Fixed extra spacing in AwesomeCV when `why` input of `detailed_entries()` is 
+  not used (#144).
+* Specified minimum package versions for some more recent version dependencies.
+
 # vitae 0.3.0
 
 This release makes substantial changes to how bibliographies included in a
