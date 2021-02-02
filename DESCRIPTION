@@ -1,6 +1,6 @@
 Package: vitae
 Title: Curriculum Vitae for R Markdown
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: c(
   person("Mitchell", "O'Hara-Wild", role=c("aut", "cre"), email = "mail@mitchelloharawild.com", comment=c(ORCID = "0000-0001-6729-7695")),
   person("Rob", "Hyndman", email="Rob.Hyndman@monash.edu", role=c("aut"), comment = c(ORCID = "0000-0002-2140-5352")),
@@ -11,7 +11,8 @@ Description: Provides templates and functions to simplify the production and mai
 Depends: R (>= 3.5.0)
 Imports: rlang, glue, dplyr, rmarkdown (>= 2.2), knitr, xfun, yaml,
         tibble, vctrs (>= 0.3.3), pillar
-Suggests: covr, rorcid, testthat, stringr, htmltools, webshot, pdftools
+Suggests: covr, rorcid, testthat, stringr, htmltools
+SystemRequirements: pandoc (>= 2.7) - http://pandoc.org
 License: GPL-3
 Encoding: UTF-8
 BugReports: https://github.com/mitchelloharawild/vitae/issues
@@ -21,7 +22,7 @@ LazyData: true
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2021-01-28 06:27:12 UTC; mitchell
+Packaged: 2021-02-02 02:57:17 UTC; mitchell
 Author: Mitchell O'Hara-Wild [aut, cre]
     (<https://orcid.org/0000-0001-6729-7695>),
   Rob Hyndman [aut] (<https://orcid.org/0000-0002-2140-5352>),
@@ -30,4 +31,4 @@ Author: Mitchell O'Hara-Wild [aut, cre]
   JooYoung Seo [ctb] (<https://orcid.org/0000-0002-4064-6012>)
 Maintainer: Mitchell O'Hara-Wild <mail@mitchelloharawild.com>
 Repository: CRAN
-Date/Publication: 2021-01-28 07:10:02 UTC
+Date/Publication: 2021-02-02 10:20:02 UTC

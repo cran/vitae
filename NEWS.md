@@ -1,3 +1,8 @@
+# vitae 0.4.1
+
+This patch release reduces the suggested package dependencies and adds further
+checks for an appropriate pandoc version.
+
 # vitae 0.4.0
 
 This release adds the first HTML template to the package, using the improved

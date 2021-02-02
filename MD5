@@ -1,6 +1,6 @@
-9a7d13671e5be5c158b1e240b21d3abe *DESCRIPTION
+a183bdf18683fa27484e6ec8ba7c7f5c *DESCRIPTION
 3c1c32784c78863bd9e4cd4d2bed0d78 *NAMESPACE
-8df663c4d0e473bc9d15e38c1ada7da2 *NEWS.md
+168492736989177ab2ffff6e53db5e67 *NEWS.md
 e611a15fa63eaa4bb9b560d56537d9c3 *R/00_entries.R
 b11d1dffd3da2fe55073cab0343e8221 *R/awesomecv.R
 a5fdec59a09e9ac8a140b153ac184a55 *R/bibliography.R
@@ -15,7 +15,7 @@ a218601115cd50a9b630112d0be40d8c *R/hyndman.R
 341438af7427fb56e1671ed807f5df00 *R/latexcv.R
 f31d175901a61162f8106541c1306353 *R/markdowncv.R
 f5355480b7e1d14bae8c703c2d6813d1 *R/moderncv.R
-0dcb9e6e83327f7899be1ed4b59f4740 *R/preview.R
+f4b888b20b159fd0bc1f3b29f25aa31e *R/preview.R
 68b329da9893e34099c7d8ad5cb9c940 *R/reexports.R
 2d5c156c9b83d59780bedeb3cebc503a *R/sysdata.rda
 564675f30a267db36cb8775cb013d409 *R/twentyseconds.R
@@ -125,7 +125,7 @@ d778c4221a84842eb4a7614f2c53d55e *man/twentyseconds.Rd
 729a66e00d45fa48093697ccb684d86c *man/vitae-package.Rd
 255b4234762702e0723f25dfbf078fff *tests/testthat.R
 29ab8fd76cfdd0f68b497352f1920473 *tests/testthat/setup-data.R
-bf805bc1556c3e39efa6a257247dbd79 *tests/testthat/test-entries.R
+bd9ebcfdbeb5c2544eadfd465d84b689 *tests/testthat/test-entries.R
 2817177ccf8bfe5f2645e1edf4da2891 *tests/testthat/test-template.R
 7e6344d1fddd2a0e4408b98edfcbec66 *vignettes/data.Rmd
 bc588cf82ad0172ea45891954d703932 *vignettes/extending.Rmd
