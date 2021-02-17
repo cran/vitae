@@ -1,14 +1,14 @@
-a183bdf18683fa27484e6ec8ba7c7f5c *DESCRIPTION
+07cdbc9f2bd4cfeb14cce93bfac542b9 *DESCRIPTION
 3c1c32784c78863bd9e4cd4d2bed0d78 *NAMESPACE
-168492736989177ab2ffff6e53db5e67 *NEWS.md
+3ee10c9f095b7d6bff79540b2bbd4895 *NEWS.md
 e611a15fa63eaa4bb9b560d56537d9c3 *R/00_entries.R
 b11d1dffd3da2fe55073cab0343e8221 *R/awesomecv.R
-a5fdec59a09e9ac8a140b153ac184a55 *R/bibliography.R
+34dff489e8eb0a5362d6c7f4e4f8f2e4 *R/bibliography.R
 9bdee19b84031bee09c988af6373de4b *R/brief.R
 655c378d10298d53a191031ba3db8f9f *R/compact-purrr.R
 9d8c803635670d1f491a58cf3ceb0429 *R/csl_date.R
 5a8d2cda4ea6ac838e0200b651f82068 *R/csl_name.R
-f4b688496a4c3194ee66588433d2478b *R/cv_document.R
+d98e7a38943e5c2a9dc193125ede5176 *R/cv_document.R
 068c8098f801afbc40c487da5a7640ef *R/detailed.R
 146b21bbde83815b16056f72307f5014 *R/dplyr.R
 a218601115cd50a9b630112d0be40d8c *R/hyndman.R
@@ -101,7 +101,7 @@ b2b0f1fc76a946b473dc63721c16ed6b *inst/rmarkdown/templates/twentyseconds/skeleto
 6b5121bfbe092c81c9dd6eb7f973fe2b *inst/rmarkdown/templates/twentyseconds/template.yaml
 34d718bcc6c7f9e126d51bcf654a5b93 *inst/vitae.csl
 7f309aaa267f415cf085dd1c9b4d2b6f *man/awesomecv.Rd
-9c22c363e0dadd74b6ca50e4bbc30f63 *man/bibliography_entries.Rd
+69c0574c42dc753b5f0ac6b054d7cdad *man/bibliography_entries.Rd
 4c8e1f2503af724852a987cd411a15a1 *man/csl_date.Rd
 fde9d87aa7dc067c467bb235e32bd04d *man/csl_name.Rd
 708558a46d97d02256b995516fff2758 *man/cv_document.Rd
