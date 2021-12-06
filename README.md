@@ -17,20 +17,7 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lif
 
 The *vitae* package makes creating and maintaining a Résumé or CV with R
 Markdown simple. It provides a collection of LaTeX and HTML templates,
-with helpful functions to add content to the documents. There are
-currently 6 templates available in this package:
-
-| [**vitae::awesomecv**](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)                                                                   | [**vitae::hyndman**](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)                                                                 |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-awesomecv.png" width="415" alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html) | [<img src="man/figures/preview-hyndman.png" width="415" alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html) |
-
-| [**vitae::latexcv**](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)                                                                 | [**vitae::markdowncv**](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)                                                                    |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-latexcv.png" width="415" alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html) | [<img src="man/figures/preview-markdowncv.png" width="415" alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html) |
-
-| [**vitae::moderncv**](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)                                                                  | [**vitae::twentyseconds**](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)                                                                       |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-moderncv.png" width="415" alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html) | [<img src="man/figures/preview-twentyseconds.png" width="415" alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html) |
+with helpful functions to add content to the documents.
 
 ## Installation
 
@@ -44,8 +31,8 @@ You can install the **development** version from
 [GitHub](https://github.com/mitchelloharawild/vitae).
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("mitchelloharawild/vitae")
+# install.packages("remotes")
+remotes::install_github("mitchelloharawild/vitae")
 ```
 
 This package requires LaTeX to be installed on your computer. If you’re
@@ -60,11 +47,14 @@ tinytex::install_tinytex()
 
 ## Getting started
 
-The *vitae* package currently supports 6 popular CV templates, and
-adding more is a relatively simple process (details in the [creating
-vitae
-templates](https://pkg.mitchelloharawild.com/vitae/articles/extending.html)
-vignette).
+The *vitae* package currently supports 6 popular CV templates. You can
+see some previews of the available templates [below](#templates).
+
+If you prefer a guided introduction in video form, check out [Bryan
+Jenks](https://github.com/tallguyjenks)’
+[freeCodeCamp](https://github.com/freeCodeCamp/freeCodeCamp) [tech
+talk](https://youtu.be/cMlRAiQUdD8):
+[![](man/figures/freecodecamp.jpg)](https://youtu.be/cMlRAiQUdD8)
 
 Creating a new CV with `vitae` can be done using the RStudio R Markdown
 template selector: ![](man/figures/template_gui.png)
@@ -74,7 +64,7 @@ information in the YAML header (name, position, social links…) and
 extended information in the main body. The main body of the CV is
 written using markdown, and allows for data-driven generation of entries
 using the [`*_entries`
-functions](https://pkg.mitchelloharawild.com/vitae/reference/cventries.html).
+functions](https://pkg.mitchelloharawild.com/vitae/reference/cv_entries.html).
 This allows you to import your working history from other sources (such
 as ORCID, Google Scholar, or a maintained dataset), and include them
 programmatically into your CV.
@@ -131,12 +121,32 @@ Additional examples of using this package can be found in the slides
 presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 <https://slides.mitchelloharawild.com/vitae/>
 
+## Templates
+
+There are currently 6 templates available in this package:
+
+| [**vitae::awesomecv**](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)                                                                   | [**vitae::hyndman**](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)                                                                 |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-awesomecv.png" width="415" alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html) | [<img src="man/figures/preview-hyndman.png" width="415" alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html) |
+
+| [**vitae::latexcv**](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)                                                                 | [**vitae::markdowncv**](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)                                                                    |
+|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-latexcv.png" width="415" alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html) | [<img src="man/figures/preview-markdowncv.png" width="415" alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html) |
+
+| [**vitae::moderncv**](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)                                                                  | [**vitae::twentyseconds**](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)                                                                       |
+|:--------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-moderncv.png" width="415" alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html) | [<img src="man/figures/preview-twentyseconds.png" width="415" alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html) |
+
+Extending the package to add new templates is a somewhat simple process
+(details in the [creating vitae
+templates](https://pkg.mitchelloharawild.com/vitae/articles/extending.html)
+vignette).
+
 ## Examples of using vitae
 
 -   [Mitchell O’Hara-Wild](https://github.com/mitchelloharawild/CV)
 -   [Rob Hyndman](https://github.com/robjhyndman/CV)
 -   [Eric R. Scott](https://github.com/Aariq/curriculum-vitae)
--   [Chris Umphlett](http://chrisumphlett.com/posts/vitae-package/)
 -   [Nat Price](https://github.com/natbprice/cv)
 -   [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment!)
 -   [JooYoung Seo](https://github.com/jooyoungseo/jy_CV) (printing
@@ -145,6 +155,11 @@ presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 -   [Han Zhang](https://github.com/HanZhang-psych/CV) (custom csl files)
 -   [Bryan Jenks](https://github.com/tallguyjenks/CV)
 -   [Lorena Abad](https://github.com/loreabad6/R-CV)
+-   [Lampros Sp. Mouselimis](https://github.com/mlampros/My.CVitae)
+    (using Github Actions and a docker image to programmatically
+    generate the CV file)
+-   [Adam Kirosingh](https://github.com/akirosingh/CV)
+-   [Marco Lombardi](https://github.com/mlombardi6/awesome-template)
 
 Add your vitae to the list using a PR.
 

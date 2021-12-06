@@ -12,9 +12,7 @@
 #'
 #' @author Mitchell O'Hara-Wild & Rob J Hyndman
 #'
-#' @examples
-#' if (rmarkdown::pandoc_available("2.7")) {
-#'
+#' @examplesIf rmarkdown::pandoc_available("2.7")
 #' # Create a bibliography from a set of packages
 #' bib <- tempfile(fileext = ".bib")
 #' knitr::write_bib(c("vitae", "tibble"), bib)
@@ -30,8 +28,6 @@
 #' # For example, use `author$family` to sort by family names.
 #' bibliography_entries(bib) %>%
 #'   arrange(desc(author$family))
-#'
-#' }
 #' @export
 bibliography_entries <- function(file, startlabel = NULL, endlabel = NULL) {
   if(!is.null(startlabel)){
@@ -41,9 +37,21 @@ bibliography_entries <- function(file, startlabel = NULL, endlabel = NULL) {
     warning("The `endlabel` argument is defunct and will be removed in the next release.\n. Please use a different approach to including labels.")
   }
 
-  bib <- rmarkdown::pandoc_citeproc_convert(file)
+  # Parse bib file
+  # Set system() output encoding as UTF-8 to fix Windows issue (rmarkdown#2195)
+  bib <- rmarkdown::pandoc_citeproc_convert(file, type = "json")
+  Encoding(bib) <- "UTF-8"
+  bib <- jsonlite::fromJSON(bib, simplifyVector = FALSE)
 
-  bib_ptype <- csl_fields[unique(vec_c(!!!lapply(bib, names)))]
+  # Produce prototype
+  bib_schema <- unique(vec_c(!!!lapply(bib, names)))
+
+  ## Add missing fields to schema
+  csl_idx <- match(bib_schema, names(csl_fields))
+  csl_fields[bib_schema[which(is.na(csl_idx))]] <- character()
+
+  ## Use schema as prototype
+  bib_ptype <- csl_fields[bib_schema]
   bib_ptype <- vctrs::vec_init(bib_ptype, 1)
 
   # Add missing values to complete rectangular structure

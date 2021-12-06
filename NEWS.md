@@ -1,3 +1,15 @@
+# vitae 0.5.1
+
+# vitae 0.5.0
+
+## Improvements
+
+* Fixed issue with bibliographies containing 'other-ids' (#174).
+* Fixed encoding issues with `bibliography_entries()` on Windows (#158).
+* Add fallback entry formatter as tibble.
+* Fixed incorrect ORCID icon in `vitae::hyndman` template (#160).
+* Added document and geometry options for `vitae::awesomecv` (#186).
+
 # vitae 0.4.2
 
 Small patch to resolve CRAN checks.
