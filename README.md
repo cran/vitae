@@ -5,13 +5,16 @@
 
 */ˈviːteɪ/*
 
+<!-- badges: start -->
+
 [![CRAN
 status](https://www.r-pkg.org/badges/version/vitae)](https://cran.r-project.org/package=vitae)
-![Check
-status](https://github.com/mitchelloharawild/vitae/workflows/R-CMD-check/badge.svg)
+[![R check
+status](https://github.com/mitchelloharawild/vitae/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mitchelloharawild/vitae/actions/workflows/R-CMD-check.yaml)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 [![Downloads](https://cranlogs.r-pkg.org/badges/vitae)](https://cran.r-project.org/package=vitae)
+<!-- badges: end -->
 
 ## Templates and tools for making a Résumé/CV
 
@@ -37,8 +40,8 @@ remotes::install_github("mitchelloharawild/vitae")
 
 This package requires LaTeX to be installed on your computer. If you’re
 encountering issues, please check that LaTeX is installed. The [tinytex
-package](https://github.com/yihui/tinytex) makes it easy to setup LaTeX
-within R:
+package](https://github.com/rstudio/tinytex) makes it easy to setup
+LaTeX within R:
 
 ``` r
 install.packages('tinytex')
@@ -125,17 +128,23 @@ presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 
 There are currently 6 templates available in this package:
 
-| [**vitae::awesomecv**](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)                                                                   | [**vitae::hyndman**](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)                                                                 |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-awesomecv.png" width="415" alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html) | [<img src="man/figures/preview-hyndman.png" width="415" alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html) |
+| [**vitae::awesomecv**](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)         | [**vitae::hyndman**](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)         |
+|:-------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-awesomecv.png" width="415"                                        
+ alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)  | [<img src="man/figures/preview-hyndman.png" width="415"                                      
+                                                                                                    alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)  |
 
-| [**vitae::latexcv**](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)                                                                 | [**vitae::markdowncv**](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)                                                                    |
-|:-----------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-latexcv.png" width="415" alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html) | [<img src="man/figures/preview-markdowncv.png" width="415" alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html) |
+| [**vitae::latexcv**](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)         | [**vitae::markdowncv**](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)         |
+|:---------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-latexcv.png" width="415"                                      
+ alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)  | [<img src="man/figures/preview-markdowncv.png" width="415"                                         
+                                                                                                alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)  |
 
-| [**vitae::moderncv**](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)                                                                  | [**vitae::twentyseconds**](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)                                                                       |
-|:--------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-moderncv.png" width="415" alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html) | [<img src="man/figures/preview-twentyseconds.png" width="415" alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html) |
+| [**vitae::moderncv**](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)         | [**vitae::twentyseconds**](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)         |
+|:-----------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-moderncv.png" width="415"                                       
+ alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)  | [<img src="man/figures/preview-twentyseconds.png" width="415"                                            
+                                                                                                  alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)  |
 
 Extending the package to add new templates is a somewhat simple process
 (details in the [creating vitae
@@ -160,6 +169,7 @@ vignette).
     generate the CV file)
 -   [Adam Kirosingh](https://github.com/akirosingh/CV)
 -   [Marco Lombardi](https://github.com/mlombardi6/awesome-template)
+-   [Anthony Romero](https://github.com/ganthonyr/CV)
 
 Add your vitae to the list using a PR.
 

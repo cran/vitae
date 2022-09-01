@@ -14,7 +14,19 @@
 
 <title>Data sources for vitae</title>
 
-<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -24,6 +36,7 @@
   div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   ul.task-list{list-style: none;}
     </style>
+
 
 
 <style type="text/css">
@@ -107,13 +120,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -125,7 +145,187 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
 
 
 
@@ -141,26 +341,61 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<p>Using data to dynamically build your Résumé or CV makes many powerful integrations possible. By using data to populate entries in the document, it becomes easy to manipulate and select relevant experiences for a particular application. There are many sources of data which can be used to populate a CV with vitae, some commonly sources are summarised in this vignette.</p>
-<p>The main purpose of sourcing your CV entries from common data sources is to extend the “do not repeat yourself” programming philosophy to maintaining a CV. If you maintain publications on <a href="https://orcid.org/">ORCID</a> you shouldn’t need to repeat these entries in your CV. If a list of talks you’ve made can be found on your website, avoid repeating the list in multiple locations to ensure that they both contain the same content.</p>
-<p>This vignette is far from comprehensive, and there are no doubt many other interesting ways to populate your CV with data. If you’re using a data source that you think others should know about, consider making a <a href="https://github.com/mitchelloharawild/vitae/pulls">pull request</a> that adds your method to this vignette.</p>
+<p>Using data to dynamically build your Résumé or CV makes many powerful
+integrations possible. By using data to populate entries in the
+document, it becomes easy to manipulate and select relevant experiences
+for a particular application. There are many sources of data which can
+be used to populate a CV with vitae, some commonly sources are
+summarised in this vignette.</p>
+<p>The main purpose of sourcing your CV entries from common data sources
+is to extend the “do not repeat yourself” programming philosophy to
+maintaining a CV. If you maintain publications on <a href="https://orcid.org/">ORCID</a> you shouldn’t need to repeat these
+entries in your CV. If a list of talks you’ve made can be found on your
+website, avoid repeating the list in multiple locations to ensure that
+they both contain the same content.</p>
+<p>This vignette is far from comprehensive, and there are no doubt many
+other interesting ways to populate your CV with data. If you’re using a
+data source that you think others should know about, consider making a
+<a href="https://github.com/mitchelloharawild/vitae/pulls">pull
+request</a> that adds your method to this vignette.</p>
 <div id="spreadsheets-and-data-sets" class="section level2">
 <h2>Spreadsheets and data sets</h2>
-<p>The simplest source of entries for vitae are maintained dataset(s) of past experiences and achievements. Just like any dataset, these entries can be loaded into the document as a <code>data.frame</code> or <code>tibble</code> using functions from base R or the <a href="https://readr.tidyverse.org/"><code>readr</code> package</a>.</p>
+<p>The simplest source of entries for vitae are maintained dataset(s) of
+past experiences and achievements. Just like any dataset, these entries
+can be loaded into the document as a <code>data.frame</code> or
+<code>tibble</code> using functions from base R or the <a href="https://readr.tidyverse.org/"><code>readr</code> package</a>.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>readr<span class="sc">::</span><span class="fu">read_csv</span>(<span class="st">&quot;employment.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(???)</span></code></pre></div>
-<p>It is also possible to load in data from excel using the <a href="https://readxl.tidyverse.org/"><code>readxl</code> package</a> or from Google Sheets using the <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code> package</a>.</p>
+<p>It is also possible to load in data from excel using the <a href="https://readxl.tidyverse.org/"><code>readxl</code> package</a> or
+from Google Sheets using the <a href="https://github.com/jennybc/googlesheets"><code>googlesheets</code>
+package</a>.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>readxl<span class="sc">::</span><span class="fu">read_excel</span>(<span class="st">&quot;awards.xlsx&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">brief_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="orcid" class="section level2">
 <h2>ORCID</h2>
-<p>If you maintain an <a href="https://orcid.org/">ORCID</a> profile, this information can be accessed using the <a href="https://github.com/ropensci/rorcid"><code>rorcid</code> package</a>. It will require an ORCID authentication token to be setup, as rendering the CV is done non-interactively. From the <code>rorcid</code> documentation:</p>
+<p>If you maintain an <a href="https://orcid.org/">ORCID</a> profile,
+this information can be accessed using the <a href="https://github.com/ropensci/rorcid"><code>rorcid</code>
+package</a>. It will require an ORCID authentication token to be setup,
+as rendering the CV is done non-interactively. From the
+<code>rorcid</code> documentation:</p>
 <blockquote>
-<p>The token is a alphanumeric UUID, e.g. dc0a6b6b-b4d4-4276-bc89-78c1e9ede56e. You can get this token by running orcid_auth(), then storing that key (the uuid alone, not the “Bearer” part) either as en environment variable in your .Renviron file in your home directory, or as an R option in your .Rprofile file. See ?Startup for more information. Either an environment variable or R option work. If we don’t find either we do the next option.</p>
+<p>The token is a alphanumeric UUID,
+e.g. dc0a6b6b-b4d4-4276-bc89-78c1e9ede56e. You can get this token by
+running orcid_auth(), then storing that key (the uuid alone, not the
+“Bearer” part) either as en environment variable in your .Renviron file
+in your home directory, or as an R option in your .Rprofile file. See
+?Startup for more information. Either an environment variable or R
+option work. If we don’t find either we do the next option.</p>
 </blockquote>
-<p>Essentially, use <code>rorcid::orcid_auth()</code> to obtain a token, which is added to either the <code>.Renviron</code> (<code>usethis::edit_r_environ()</code>) or <code>.Rprofile</code> (<code>usethis::edit_r_profile()</code>) using <code>ORCID_TOKEN=&lt;YOUR TOKEN HERE&gt;</code>.</p>
-<p>With the token setup, it is now possible to pull data from ORCID. As an example, here I source and display my education history using my ORCID ID of <code>&quot;0000-0001-6729-7695&quot;</code>.</p>
+<p>Essentially, use <code>rorcid::orcid_auth()</code> to obtain a token,
+which is added to either the <code>.Renviron</code>
+(<code>usethis::edit_r_environ()</code>) or <code>.Rprofile</code>
+(<code>usethis::edit_r_profile()</code>) using
+<code>ORCID_TOKEN=&lt;YOUR TOKEN HERE&gt;</code>.</p>
+<p>With the token setup, it is now possible to pull data from ORCID. As
+an example, here I source and display my education history using my
+ORCID ID of <code>&quot;0000-0001-6729-7695&quot;</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>edu <span class="ot">&lt;-</span> <span class="fu">do.call</span>(<span class="st">&quot;rbind&quot;</span>,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  rorcid<span class="sc">::</span><span class="fu">orcid_educations</span>(<span class="st">&quot;0000-0001-6729-7695&quot;</span>)<span class="sc">$</span><span class="st">`</span><span class="at">0000-0001-6729-7695</span><span class="st">`</span><span class="sc">$</span><span class="st">`</span><span class="at">affiliation-group</span><span class="st">`</span><span class="sc">$</span>summaries</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -174,7 +409,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="google-scholar" class="section level2">
 <h2>Google scholar</h2>
-<p>Google Scholar does not require authentication to extract publications. Using the <a href="https://github.com/jkeirstead/scholar"><code>scholar</code> package</a>, it is easy to extract a user’s publications from their Google Scholar ID. To obtain publications for an individual, you would first find your ID which is accessible from your profile URL. For example, Rob Hyndman’s ID would be <code>&quot;vamErfkAAAAJ&quot;</code> (<a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en</a>).</p>
+<p>Google Scholar does not require authentication to extract
+publications. Using the <a href="https://github.com/jkeirstead/scholar"><code>scholar</code>
+package</a>, it is easy to extract a user’s publications from their
+Google Scholar ID. To obtain publications for an individual, you would
+first find your ID which is accessible from your profile URL. For
+example, Rob Hyndman’s ID would be <code>&quot;vamErfkAAAAJ&quot;</code> (<a href="https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en" class="uri">https://scholar.google.com/citations?user=vamErfkAAAAJ&amp;hl=en</a>).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>scholar<span class="sc">::</span><span class="fu">get_publications</span>(<span class="st">&quot;vamErfkAAAAJ&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">what =</span> title,</span>
@@ -186,15 +426,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="bibliography-files" class="section level2">
 <h2>Bibliography files</h2>
-<p>The vitae package directly supports loading <code>*.bib</code> files using the <code>bibliography_entries()</code> function, which formats the entries in a bibliography style.</p>
+<p>The vitae package directly supports loading <code>*.bib</code> files
+using the <code>bibliography_entries()</code> function, which formats
+the entries in a bibliography style.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>)</span></code></pre></div>
-<p>It is also possible to display the contents of your bibliography using template specific entries formats.</p>
+<p>It is also possible to display the contents of your bibliography
+using template specific entries formats.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bibliography_entries</span>(<span class="st">&quot;publications.bib&quot;</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">detailed_entries</span>(???)</span></code></pre></div>
 </div>
 <div id="r-packages" class="section level2">
 <h2>R packages</h2>
-<p>A list of R packages that you have helped develop can be obtained using the <a href="https://github.com/r-hub/pkgsearch"><code>pkgsearch</code> package</a>.</p>
+<p>A list of R packages that you have helped develop can be obtained
+using the <a href="https://github.com/r-hub/pkgsearch"><code>pkgsearch</code>
+package</a>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pkgsearch<span class="sc">::</span><span class="fu">ps</span>(<span class="st">&quot;O&#39;Hara-Wild&quot;</span>,<span class="at">size =</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">map_lgl</span>(package_data, <span class="sc">~</span> <span class="fu">grepl</span>(<span class="st">&quot;Mitchell O&#39;Hara-Wild&quot;</span>, .x<span class="sc">$</span>Author, <span class="at">fixed =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span> </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">%&gt;%</span> </span>
