@@ -1,3 +1,17 @@
+# vitae 0.5.3
+
+Small release to resolve CRAN checks and removed dependency on the unmaintained 
+rorcid package.
+
+## Improvements
+
+* Added support for pronouns in the all templates (@isabelle-greco, #204, #228).
+* Added ORCID, ResearchGate, and Google Scholar icons for all CVs (@Rekyt, #209).
+
+## Bug fixes
+
+* Fixed footer not showing for awesomecv.
+
 # vitae 0.5.2
 
 ## Improvements

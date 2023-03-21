@@ -72,56 +72,8 @@ This allows you to import your working history from other sources (such
 as ORCID, Google Scholar, or a maintained dataset), and include them
 programmatically into your CV.
 
-For example, the [rorcid package](https://github.com/ropensci/rorcid)
-can be used to extract [Rob
-Hyndman](https://orcid.org/0000-0002-2140-5352)’s education history:
-
-``` r
-orcid_data <- do.call("rbind",
-  rorcid::orcid_educations("0000-0002-2140-5352")$`0000-0002-2140-5352`$`affiliation-group`$summaries
-)
-```
-
-    #> 
-    #> Attaching package: 'dplyr'
-    #> The following objects are masked from 'package:stats':
-    #> 
-    #>     filter, lag
-    #> The following objects are masked from 'package:base':
-    #> 
-    #>     intersect, setdiff, setequal, union
-    #>    education-summary.role-title education-summary.start-date.year.value
-    #> 1                           PhD                                    1990
-    #> 2 Bachelor of Science (Honours)                                    1985
-    #>   education-summary.end-date.year.value education-summary.organization.name
-    #> 1                                  1992             University of Melbourne
-    #> 2                                  1988             University of Melbourne
-    #>   education-summary.organization.address.city
-    #> 1                                   Melbourne
-    #> 2                                   Melbourne
-
-The package provides two types of entries from data, which are
-`detailed_entries` and `brief_entries`. Both functions provide sections
-for `what`, `when`, and `with`, and the `detailed_entries` additionally
-supports `where` and `why`. These arguments support operations, so for
-this example, we have used `glue` to combine the start and end years for
-our `when` input. Excluding any inputs is also okay (as is done for
-`why`), it will just be left blank in the CV.
-
-``` r
-orcid_data %>%
-  detailed_entries(
-    what = `education-summary.role-title`,
-    when = glue::glue("{`education-summary.start-date.year.value`} - {`education-summary.end-date.year.value`}"),
-    with = `education-summary.organization.name`,
-    where = `education-summary.organization.address.city`
-  )
-```
-
-![](man/figures/education.png)
-
-Additional examples of using this package can be found in the slides
-presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
+Examples of using this package can be found in the list below and in the
+slides presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 <https://slides.mitchelloharawild.com/vitae/>
 
 ## Templates
@@ -129,22 +81,16 @@ presented at [ozunconf2018](https://ozunconf18.ropensci.org/):
 There are currently 6 templates available in this package:
 
 | [**vitae::awesomecv**](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)         | [**vitae::hyndman**](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)         |
-|:-------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-awesomecv.png" width="415"                                        
- alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)  | [<img src="man/figures/preview-hyndman.png" width="415"                                      
-                                                                                                    alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)  |
+|--------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-awesomecv.png" width="415" alt="Preview of awesomecv" />](https://pkg.mitchelloharawild.com/vitae/reference/awesomecv.html)  | [<img src="man/figures/preview-hyndman.png" width="415" alt="Preview of hyndman" />](https://pkg.mitchelloharawild.com/vitae/reference/hyndman.html)  |
 
 | [**vitae::latexcv**](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)         | [**vitae::markdowncv**](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)         |
-|:---------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-latexcv.png" width="415"                                      
- alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)  | [<img src="man/figures/preview-markdowncv.png" width="415"                                         
-                                                                                                alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)  |
+|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-latexcv.png" width="415" alt="Preview of latexcv" />](https://pkg.mitchelloharawild.com/vitae/reference/latexcv.html)  | [<img src="man/figures/preview-markdowncv.png" width="415" alt="Preview of markdowncv" />](https://pkg.mitchelloharawild.com/vitae/reference/markdowncv.html)  |
 
 | [**vitae::moderncv**](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)         | [**vitae::twentyseconds**](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)         |
-|:-----------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------|
-| [<img src="man/figures/preview-moderncv.png" width="415"                                       
- alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)  | [<img src="man/figures/preview-twentyseconds.png" width="415"                                            
-                                                                                                  alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)  |
+|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
+| [<img src="man/figures/preview-moderncv.png" width="415" alt="Preview of moderncv" />](https://pkg.mitchelloharawild.com/vitae/reference/moderncv.html)  | [<img src="man/figures/preview-twentyseconds.png" width="415" alt="Preview of twentyseconds" />](https://pkg.mitchelloharawild.com/vitae/reference/twentyseconds.html)  |
 
 Extending the package to add new templates is a somewhat simple process
 (details in the [creating vitae
@@ -153,23 +99,23 @@ vignette).
 
 ## Examples of using vitae
 
--   [Mitchell O’Hara-Wild](https://github.com/mitchelloharawild/CV)
--   [Rob Hyndman](https://github.com/robjhyndman/CV)
--   [Eric R. Scott](https://github.com/Aariq/curriculum-vitae)
--   [Nat Price](https://github.com/natbprice/cv)
--   [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment!)
--   [JooYoung Seo](https://github.com/jooyoungseo/jy_CV) (printing
-    multiple bibliographic entries according to a given csl file)
--   [Diogo M. Camacho](https://github.com/diogocamacho/CV)
--   [Han Zhang](https://github.com/HanZhang-psych/CV) (custom csl files)
--   [Bryan Jenks](https://github.com/tallguyjenks/CV)
--   [Lorena Abad](https://github.com/loreabad6/R-CV)
--   [Lampros Sp. Mouselimis](https://github.com/mlampros/My.CVitae)
-    (using Github Actions and a docker image to programmatically
-    generate the CV file)
--   [Adam Kirosingh](https://github.com/akirosingh/CV)
--   [Marco Lombardi](https://github.com/mlombardi6/awesome-template)
--   [Anthony Romero](https://github.com/ganthonyr/CV)
+- [Mitchell O’Hara-Wild](https://github.com/mitchelloharawild/CV)
+- [Rob Hyndman](https://github.com/robjhyndman/CV)
+- [Eric R. Scott](https://github.com/Aariq/curriculum-vitae)
+- [Nat Price](https://github.com/natbprice/cv)
+- [Sam Abbott](https://github.com/seabbs/cv) (automatic deployment!)
+- [JooYoung Seo](https://github.com/jooyoungseo/jy_CV) (printing
+  multiple bibliographic entries according to a given csl file)
+- [Diogo M. Camacho](https://github.com/diogocamacho/CV)
+- [Han Zhang](https://github.com/HanZhang-psych/CV) (custom csl files)
+- [Bryan Jenks](https://github.com/tallguyjenks/CV)
+- [Lorena Abad](https://github.com/loreabad6/R-CV)
+- [Lampros Sp. Mouselimis](https://github.com/mlampros/My.CVitae) (using
+  Github Actions and a docker image to programmatically generate the CV
+  file)
+- [Adam Kirosingh](https://github.com/akirosingh/CV)
+- [Marco Lombardi](https://github.com/mlombardi6/awesome-template)
+- [Anthony Romero](https://github.com/ganthonyr/CV)
 
 Add your vitae to the list using a PR.
 

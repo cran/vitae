@@ -77,6 +77,9 @@ $if(address)$
 \address{$address$}
 $endif$
 
+$if(pronouns)$
+\pronouns{$pronouns$}
+$endif$
 $if(phone)$
 \mobile{$phone$}
 $endif$
@@ -137,7 +140,7 @@ $endfor$
 \setlength{\cslhangindent}{1.5em}
 \newlength{\csllabelwidth}
 \setlength{\csllabelwidth}{2em}
-\newenvironment{CSLReferences}[3] % #1 hanging-ident, #2 entry spacing
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
  {% don't indent paragraphs
   \setlength{\parindent}{0pt}
   % turn on hanging indent if param 1 is 1
@@ -163,7 +166,7 @@ $endfor$
 % Print the footer with 3 arguments(<left>, <center>, <right>)
 % Leave any of these blank if they are not needed
 % 2019-02-14 Chris Umphlett - add flexibility to the document name in footer, rather than have it be static Curriculum Vitae
-$if(showfooter)$
+$if(show_footer)$
 \makecvfooter
   {$date$}
     {$name$$if(surname)$ $surname$$endif$~~~·~~~$if(docname)$$docname$$else$Curriculum Vitae$endif$}
