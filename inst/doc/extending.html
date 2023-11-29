@@ -49,7 +49,7 @@ overflow: visible;
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -451,15 +451,15 @@ appropriate layout for brief entries. It expects inputs in this
 format:</p>
 <pre><code>\cvitem{Title}{Description}</code></pre>
 <p>An appropriate function for creating these items could be:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>moderncv_cv_entries <span class="ot">&lt;-</span> <span class="fu">new_entry_formats</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">brief =</span> <span class="cf">function</span>(what, when, with){</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;</span><span class="sc">\t\\</span><span class="st">cvitem{&quot;</span>, when, <span class="st">&quot;}{&quot;</span>, what, <span class="st">&quot;. &quot;</span>, with, <span class="st">&quot;}&quot;</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  },</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">detailed =</span> ... <span class="co"># See below</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>moderncv_cv_entries <span class="ot">&lt;-</span> <span class="fu">new_entry_formats</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">brief =</span> <span class="cf">function</span>(what, when, with){</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="fu">paste0</span>(</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>      <span class="st">&quot;</span><span class="sc">\t\\</span><span class="st">cvitem{&quot;</span>, when, <span class="st">&quot;}{&quot;</span>, what, <span class="st">&quot;. &quot;</span>, with, <span class="st">&quot;}&quot;</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>      <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    )</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  },</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="at">detailed =</span> ... <span class="co"># See below</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>)</span></code></pre></div>
 <p>Note that <code>what</code>, <code>when</code> and <code>with</code>
 may contain more than one entry. This function combines each
 <code>\cvitem{}</code> into a single string by separating each entry
@@ -471,26 +471,26 @@ with a new line.</p>
 is appropriate. It expects inputs in this format:</p>
 <pre><code>\cventry{Year}{Degree}{Institution}{City}{Grade}{Description}</code></pre>
 <p>A function that can produce these entries is as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>moderncv_cv_entries <span class="ot">&lt;-</span> <span class="fu">new_entry_formats</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">brief =</span> ...,</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">detailed =</span> <span class="cf">function</span>(what, when, with, where, why){</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine why inputs into a bullet list</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    why <span class="ot">&lt;-</span> <span class="fu">lapply</span>(why, <span class="cf">function</span>(x) {</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">empty&quot;</span>)</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste</span>(<span class="fu">c</span>(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;</span><span class="sc">\\</span><span class="st">begin{itemize}%&quot;</span>,</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">item &quot;</span>, x, <span class="st">&quot;%&quot;</span>),</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;</span><span class="sc">\\</span><span class="st">end{itemize}&quot;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      ), <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    })</span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Combine inputs into \cventry{} output</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">paste0</span>(</span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\t\\</span><span class="st">cventry{&quot;</span>, when, <span class="st">&quot;}{&quot;</span>, what, <span class="st">&quot;}{&quot;</span>, with, <span class="st">&quot;}{&quot;</span>, where, <span class="st">&quot;}{}{&quot;</span>, why, <span class="st">&quot;}&quot;</span>),</span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>      <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>moderncv_cv_entries <span class="ot">&lt;-</span> <span class="fu">new_entry_formats</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  <span class="at">brief =</span> ...,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="at">detailed =</span> <span class="cf">function</span>(what, when, with, where, why){</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>    <span class="co"># Combine why inputs into a bullet list</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    why <span class="ot">&lt;-</span> <span class="fu">lapply</span>(why, <span class="cf">function</span>(x) {</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>      <span class="cf">if</span>(<span class="fu">length</span>(x) <span class="sc">==</span> <span class="dv">0</span>) <span class="fu">return</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">empty&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>      <span class="fu">paste</span>(<span class="fu">c</span>(</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>        <span class="st">&quot;</span><span class="sc">\\</span><span class="st">begin{itemize}%&quot;</span>,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>        <span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">item &quot;</span>, x, <span class="st">&quot;%&quot;</span>),</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        <span class="st">&quot;</span><span class="sc">\\</span><span class="st">end{itemize}&quot;</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>      ), <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>    })</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="co"># Combine inputs into \cventry{} output</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="fu">paste0</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>      <span class="fu">paste0</span>(<span class="st">&quot;</span><span class="sc">\t\\</span><span class="st">cventry{&quot;</span>, when, <span class="st">&quot;}{&quot;</span>, what, <span class="st">&quot;}{&quot;</span>, with, <span class="st">&quot;}{&quot;</span>, where, <span class="st">&quot;}{}{&quot;</span>, why, <span class="st">&quot;}&quot;</span>),</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>      <span class="at">collapse =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>    )</span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>  }</span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 </div>
 <div id="using-the-template-with-rmarkdown" class="section level3">
@@ -517,11 +517,11 @@ with the <code>vitae</code> package, you may be interested in making it
 available for others to use. You can contribute to this package by
 submitting a pull request that adds your template to the package.</p>
 <p>Adding your template to the package can be done with:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_rmarkdown_template</span>(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">template_name =</span> <span class="st">&quot;Curriculum Vitae (My custom format)&quot;</span>,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">template_dir =</span> <span class="st">&quot;my_template&quot;</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">template_description =</span> <span class="st">&quot;The custom vitae template made by me!&quot;</span>,</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">template_create_dir =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>usethis<span class="sc">::</span><span class="fu">use_rmarkdown_template</span>(</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="at">template_name =</span> <span class="st">&quot;Curriculum Vitae (My custom format)&quot;</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  <span class="at">template_dir =</span> <span class="st">&quot;my_template&quot;</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  <span class="at">template_description =</span> <span class="st">&quot;The custom vitae template made by me!&quot;</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  <span class="at">template_create_dir =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>Then by navigating to the package’s
 <code>inst/rmarkdown/templates/my_template</code> folder, you can add
 your Pandoc template to the <code>resources</code> folder, and your
@@ -535,16 +535,16 @@ template in the package (accessed using <code>system.file</code>), and
 it is recommended that the supporting <code>.cls</code> and
 <code>.sty</code> files are copied using
 <code>copy_supporting_files</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @rdname cv_formats</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>my_template <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  template <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;rmarkdown&quot;</span>, <span class="st">&quot;templates&quot;</span>, <span class="st">&quot;my_template&quot;</span>,</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;resources&quot;</span>, <span class="st">&quot;my_template.tex&quot;</span>, <span class="at">package=</span><span class="st">&quot;vitae&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">set_entry_formats</span>(moderncv_cv_entries)</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">copy_supporting_files</span>(<span class="st">&quot;my_template&quot;</span>)</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cv_document</span>(..., <span class="at">template =</span> template)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co">#&#39; @rdname cv_formats</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="co">#&#39; @export</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>my_template <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  template <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">&quot;rmarkdown&quot;</span>, <span class="st">&quot;templates&quot;</span>, <span class="st">&quot;my_template&quot;</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                          <span class="st">&quot;resources&quot;</span>, <span class="st">&quot;my_template.tex&quot;</span>, <span class="at">package=</span><span class="st">&quot;vitae&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  </span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">set_entry_formats</span>(moderncv_cv_entries)</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">copy_supporting_files</span>(<span class="st">&quot;my_template&quot;</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">cv_document</span>(..., <span class="at">template =</span> template)</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>}</span></code></pre></div>
 <p>The automatically generated <code>skeleton.Rmd</code> document in the
 <code>skeleton</code> folder should be modified to be a basic example of
 using your template. Examples of this file can be found in other
