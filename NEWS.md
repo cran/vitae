@@ -1,3 +1,20 @@
+# vitae 0.6.0
+
+## New features
+
+* Added the ccbaumler template for `markdowncv` (@ccbaumler, #250).
+
+## Improvements
+
+* Updated `markdowncv` academicons version (@ccbaumler, #250).
+* Added more yaml front matter configuration options for `markdowncv` (@ccbaumler, #250).
+
+## Bug fixes
+
+* Fixed issue with multiple `brief_entries()` producing overlapping text in 
+  `awesomecv` (#258).
+* Fixed the body of the document being duplicated since knitr v1.46 (#254).
+
 # vitae 0.5.4
 
 * Fixed `bibliography_entries()` failing to render PDF outputs with recent 
